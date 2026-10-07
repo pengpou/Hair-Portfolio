@@ -72,66 +72,21 @@ a { color: inherit; }
 
 /* Services */
 .services { padding: 6rem 1.5rem; text-align: center; }
-.services-title { font-size: clamp(2.6rem, 7vw, 4.6rem); text-transform: uppercase; letter-spacing: 0.12em; }
-.services-sub { margin: 0.8rem 0 3rem; color: var(--muted); font-size: 1.15rem; font-weight: 300; }
-
-.tabs { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.tab { display: flex; flex-direction: column; gap: 1rem; }
-.tab-btn {
-  padding: 2.2rem 1rem;
-  font: inherit; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 400; letter-spacing: 0.04em;
-  text-align: center; color: var(--ink); cursor: pointer;
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  border: 1px solid var(--glass-border); border-top: 3px solid transparent;
-  box-shadow: var(--shadow); transition: all 0.25s;
+.services-title {
+  font-size: clamp(3rem, 9vw, 6rem); text-transform: uppercase; letter-spacing: 0.14em;
+  text-align: center; margin: 0 auto 3.5rem;
 }
-.tab-btn:hover { background: var(--glass-strong); transform: translateY(-3px); }
-.tab-btn[aria-expanded="true"] { background: linear-gradient(135deg, var(--accent), var(--accent-deep)); color: #fff; border-top-color: #8fd0f5; }
-.tab-btn:focus-visible, .subtab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-.tab-photo {
-  margin: 0; aspect-ratio: 4 / 5; overflow: hidden; position: relative;
+.service-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.service-card { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.service-label { font-size: clamp(1.8rem, 3.2vw, 2.6rem); font-weight: 400; letter-spacing: 0.04em; text-align: center; }
+.photo-box {
+  width: 100%; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; position: relative;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(159,190,214,0.55) 50%, rgba(255,255,255,0.5) 100%);
   border: 1px solid var(--glass-border); box-shadow: var(--shadow);
-  color: var(--muted); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.75rem;
+  color: var(--muted); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;
 }
-.tab-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-/* Expanded panel (below the tabs, not inside them) */
-.tab-panels { max-width: var(--max); margin: 2.5rem auto 0; }
-.tab-panel {
-  padding: 2.5rem 2rem; text-align: center;
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  border: 1px solid var(--glass-border); box-shadow: var(--shadow);
-}
-.panel-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
-
-.subtabs { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.subtab {
-  padding: 0.7rem 1.6rem; border: 1px solid var(--accent); background: transparent; color: var(--accent-deep);
-  cursor: pointer; font: inherit; font-size: 0.95rem; letter-spacing: 0.06em; transition: all 0.2s;
-}
-.subtab:hover { background: rgba(31, 122, 184, 0.1); }
-.subtab.active { background: var(--accent); color: #fff; }
-
-/* Gallery */
-.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-.ph {
-  margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden;
-  background: linear-gradient(145deg, #e3edf5, #a9c3d8);
-  border: 1px solid var(--glass-border);
-}
-.ph:nth-child(even) { background: linear-gradient(145deg, #d3e2ee, #8fb0c9); }
-.ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ph figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 1rem 0.8rem;
-  color: #fff; font-size: 0.9rem; letter-spacing: 0.08em;
-  background: linear-gradient(transparent, rgba(13, 27, 42, 0.65));
-}
-
+.photo-box img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* About / contact */
 .about, .contact { padding: 5rem 1.5rem; text-align: center; }
 .about h2, .contact h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
@@ -161,7 +116,5 @@ a { color: inherit; }
   }
   .site-nav.open { display: flex; }
   .site-nav a { padding: 0.6rem 0; }
-  .tabs { grid-template-columns: 1fr; }
-  .tab-photo { aspect-ratio: 16 / 10; }
-  .tab-panel { padding: 2rem 1rem; }
+  .service-grid { grid-template-columns: 1fr; }
 }

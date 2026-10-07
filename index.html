@@ -30,72 +30,30 @@
 
     <section class="services" id="services">
       <h2 class="services-title">Services</h2>
-      <p class="services-sub">Select a service to explore the work</p>
 
-      <div class="tabs">
-        <div class="tab" id="mens">
-          <button class="tab-btn" aria-expanded="false" aria-controls="panel-mens">Men's Cuts</button>
-          <figure class="tab-photo">
-            <!-- Replace this comment with: <img src="mens.jpg" alt="Men's cut"> -->
+      <div class="service-grid">
+        <div class="service-card" id="mens">
+          <h3 class="service-label">Men's Cuts</h3>
+          <figure class="photo-box">
+            <!-- Replace the span with: <img src="mens.jpg" alt="Men's cut"> -->
             <span>Photo</span>
           </figure>
         </div>
 
-        <div class="tab" id="womens">
-          <button class="tab-btn" aria-expanded="false" aria-controls="panel-womens">Women's Cuts</button>
-          <figure class="tab-photo">
-            <!-- Replace this comment with: <img src="womens.jpg" alt="Women's cut"> -->
+        <div class="service-card" id="womens">
+          <h3 class="service-label">Women's Cuts</h3>
+          <figure class="photo-box">
+            <!-- Replace the span with: <img src="womens.jpg" alt="Women's cut"> -->
             <span>Photo</span>
           </figure>
         </div>
 
-        <div class="tab" id="chemical">
-          <button class="tab-btn" aria-expanded="false" aria-controls="panel-chemical">Chemical Services</button>
-          <figure class="tab-photo">
-            <!-- Replace this comment with: <img src="chemical.jpg" alt="Chemical service"> -->
+        <div class="service-card" id="chemical">
+          <h3 class="service-label">Chemical Services</h3>
+          <figure class="photo-box">
+            <!-- Replace the span with: <img src="chemical.jpg" alt="Chemical service"> -->
             <span>Photo</span>
           </figure>
-        </div>
-      </div>
-
-      <div class="tab-panels">
-        <div class="tab-panel" id="panel-mens" hidden>
-          <h3 class="panel-title">Men's Cuts</h3>
-          <div class="gallery">
-            <figure class="ph"><figcaption>Skin Fade</figcaption></figure>
-            <figure class="ph"><figcaption>Classic Taper</figcaption></figure>
-            <figure class="ph"><figcaption>Textured Crop</figcaption></figure>
-            <figure class="ph"><figcaption>Scissor Cut</figcaption></figure>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="panel-womens" hidden>
-          <h3 class="panel-title">Women's Cuts</h3>
-          <div class="gallery">
-            <figure class="ph"><figcaption>Blunt Bob</figcaption></figure>
-            <figure class="ph"><figcaption>Long Layers</figcaption></figure>
-            <figure class="ph"><figcaption>Pixie</figcaption></figure>
-            <figure class="ph"><figcaption>Curtain Fringe</figcaption></figure>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="panel-chemical" hidden>
-          <h3 class="panel-title">Chemical Services</h3>
-          <div class="subtabs" role="tablist">
-            <button class="subtab active" role="tab" aria-selected="true" data-target="sub-perms">Permanent Waves</button>
-            <button class="subtab" role="tab" aria-selected="false" data-target="sub-color">Color</button>
-          </div>
-          <div class="gallery" id="sub-perms">
-            <figure class="ph"><figcaption>Body Wave</figcaption></figure>
-            <figure class="ph"><figcaption>Spiral Perm</figcaption></figure>
-            <figure class="ph"><figcaption>Root Perm</figcaption></figure>
-          </div>
-          <div class="gallery" id="sub-color" hidden>
-            <figure class="ph"><figcaption>Balayage</figcaption></figure>
-            <figure class="ph"><figcaption>Full Color</figcaption></figure>
-            <figure class="ph"><figcaption>Highlights</figcaption></figure>
-            <figure class="ph"><figcaption>Fashion Shades</figcaption></figure>
-          </div>
         </div>
       </div>
     </section>
