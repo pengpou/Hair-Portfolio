@@ -4,87 +4,132 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Name | Hair Stylist Portfolio</title>
-  <meta name="description" content="Portfolio of men's cuts, women's cuts, and chemical services including permanent waves and color.">
+  <meta name="description" content="Men's cuts, women's cuts, and chemical services including permanent waves and color in Boston, MA.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#prices">Skip to content</a>
   <header class="site-header">
     <a class="logo" href="#home">Your Name<span>Hair Studio</span></a>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
     <nav class="site-nav" id="site-nav">
-      <a href="#mens">Men's Cuts</a>
-      <a href="#womens">Women's Cuts</a>
-      <a href="#chemical">Chemical Services</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="btn btn-small">Book</a>
+      <a href="#home">Home</a>
+      <a href="#prices">Prices</a>
+      <a href="#gallery">Our Work</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-ig" href="https://www.instagram.com/pengpoou" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ig-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="#contact" class="btn btn-small">Book now</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="home">
-      <p class="eyebrow">Hair Stylist &amp; Colorist</p>
+      <p class="eyebrow">Boston, MA &middot; Hair Stylist &amp; Colorist</p>
       <h1>Cuts, color &amp; texture,<br>crafted for you.</h1>
-      <p class="lead">A selection of my recent work across men's cuts, women's cuts, and chemical services.</p>
-      <a class="btn" href="#services">View my work</a>
+      <p class="lead">Men's cuts, women's cuts, permanent waves and color.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Book now</a>
+        <a class="btn btn-outline" href="tel:+18326829841">Call me</a>
+      </div>
+    </section>
+
+    <section class="prices" id="prices">
+      <h2 class="section-title">Prices</h2>
+      <!-- Replace each $00 with your real price. Add or remove .price-item blocks as needed. -->
+      <div class="price-grid">
+
+        <div class="price-group">
+          <h3>Men's Cuts</h3>
+          <ul>
+            <li class="price-item"><span class="name">Haircut</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Skin Fade</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Beard Trim <em>(add on service)</em></span><span class="price">$00</span></li>
+          </ul>
+        </div>
+
+        <div class="price-group">
+          <h3>Women's Cuts</h3>
+          <ul>
+            <li class="price-item"><span class="name">Haircut &amp; Style</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Bang Trim</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Blow Dry</span><span class="price">$00</span></li>
+          </ul>
+        </div>
+
+        <div class="price-group">
+          <h3>Permanent Waves</h3>
+          <ul>
+            <li class="price-item"><span class="name">Body Wave</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Spiral Perm</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Root Perm</span><span class="price">$00</span></li>
+          </ul>
+        </div>
+
+        <div class="price-group">
+          <h3>Color</h3>
+          <ul>
+            <li class="price-item"><span class="name">Root Touch-Up</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Full Color</span><span class="price">$00</span></li>
+            <li class="price-item"><span class="name">Highlights</span><span class="price">$00 &ndash; $00</span></li>
+            <li class="price-item"><span class="name">Balayage</span><span class="price">$00 &ndash; $00</span></li>
+            <li class="price-item"><span class="name">Fashion Shades</span><span class="price">$00 &ndash; $00</span></li>
+          </ul>
+        </div>
+
+      </div>
+      <p class="price-note">Final pricing depends on hair length and thickness. Contact me for a quote.</p>
+      <a class="btn" href="#contact">Book now</a>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+      <h2 class="section-title">Our Work</h2>
+      <!-- Replace each <span> with: <img src="photo.jpg" alt="Description"> -->
+      <div class="photo-grid">
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+        <figure class="photo-box"><span>Photo</span></figure>
+      </div>
+      <p class="follow"><a class="ig" href="https://www.instagram.com/pengpoou" target="_blank" rel="noopener"><svg class="ig-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg> Follow @pengpoou on Instagram</a></p>
+      <a class="btn" href="#contact">Book now</a>
     </section>
 
     <section class="services" id="services">
-      <h2 class="services-title">Services</h2>
-
+      <h2 class="section-title">The Work I Do</h2>
       <div class="service-grid">
         <div class="service-card" id="mens">
           <h3 class="service-label">Men's Cuts</h3>
-          <figure class="photo-box">
-            <!-- Replace the span with: <img src="mens.jpg" alt="Men's cut"> -->
-            <span>Photo</span>
-          </figure>
+          <figure class="photo-box"><span>Photo</span></figure>
         </div>
-
         <div class="service-card" id="womens">
           <h3 class="service-label">Women's Cuts</h3>
-          <figure class="photo-box">
-            <!-- Replace the span with: <img src="womens.jpg" alt="Women's cut"> -->
-            <span>Photo</span>
-          </figure>
+          <figure class="photo-box"><span>Photo</span></figure>
         </div>
-
         <div class="service-card" id="chemical">
           <h3 class="service-label">Chemical Services</h3>
-          <figure class="photo-box">
-            <!-- Replace the span with: <img src="chemical.jpg" alt="Chemical service"> -->
-            <span>Photo</span>
-          </figure>
+          <figure class="photo-box"><span>Photo</span></figure>
         </div>
       </div>
     </section>
 
-    <section class="about" id="about">
-      <h2>About</h2>
-      <p>Write a short bio here: your training, years of experience, specialties, and what clients can expect from a visit.</p>
-    </section>
-
-    <section class="contact alt" id="contact">
-      <h2>Book an Appointment</h2>
-      <p>Email, call, or follow along for more work.</p>
+    <section class="contact" id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p>Book an appointment by phone, email or Instagram.</p>
       <ul>
         <li><a href="mailto:mattheworoupeng@gmail.com">mattheworoupeng@gmail.com</a></li>
         <li><a href="tel:+18326829841">+1 (832)-682-9841</a></li>
-        <li>
-          <a class="ig" href="https://www.instagram.com/pengpoou" target="_blank" rel="noopener">
-            <svg class="ig-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-              <circle cx="12" cy="12" r="4"></circle>
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
-            </svg>
-            @pengpoou
-          </a>
-        </li>
+        <li><a class="ig" href="https://www.instagram.com/pengpoou" target="_blank" rel="noopener"><svg class="ig-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg> @pengpoou</a></li>
       </ul>
+      <p class="loc">Boston, MA</p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Boston, MA</p>
     <p>&copy; <span id="year"></span> Your Name Hair Studio</p>
   </footer>
 
