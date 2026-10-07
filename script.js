@@ -28,6 +28,10 @@ tabButtons.forEach((btn) => {
     const willOpen = btn.getAttribute('aria-expanded') !== 'true';
     tabButtons.forEach((b) => setTab(b, false));
     setTab(btn, willOpen);
+    if (willOpen) {
+      document.getElementById(btn.getAttribute('aria-controls'))
+        .scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   });
 });
 
