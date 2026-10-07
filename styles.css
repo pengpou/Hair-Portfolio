@@ -83,6 +83,33 @@ a { color: inherit; }
 .ph-9 { background: #c4b7cc; } .ph-10 { background: #b5a6c0; } .ph-11 { background: #d0c4d6; }
 .ph-12 { background: #d9a98a; } .ph-13 { background: #b9715a; } .ph-14 { background: #e3c79a; } .ph-15 { background: #a58bc4; }
 
+/* Service tabs */
+.services { padding: 5rem 1.25rem; }
+.services-title { max-width: var(--max); margin: 0 auto 2rem; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.tabs { max-width: var(--max); margin: 0 auto; display: grid; gap: 1rem; }
+.tab { background: #fff; border: 1px solid #e6ddd5; border-radius: 4px; overflow: hidden; }
+.tab-btn {
+  width: 100%; display: grid; grid-template-columns: 1fr auto; align-items: center;
+  row-gap: 0.2rem; padding: 2rem 1.75rem; background: none; border: 0;
+  text-align: left; cursor: pointer; color: var(--ink); font-family: inherit;
+}
+.tab-btn:hover { background: var(--bg-alt); }
+.tab-btn:focus-visible, .subtab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tab-name { grid-column: 1; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; }
+.tab-desc { grid-column: 1; color: var(--muted); font-family: system-ui, sans-serif; font-size: 0.95rem; }
+.tab-icon { grid-column: 2; grid-row: 1 / span 2; width: 14px; height: 14px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg); transition: transform 0.25s; }
+.tab-btn[aria-expanded="true"] .tab-icon { transform: rotate(-135deg); }
+.tab-btn[aria-expanded="true"] { border-bottom: 1px solid #e6ddd5; }
+.tab-panel { padding: 1.5rem 1.75rem 2rem; }
+[hidden] { display: none !important; }
+
+.subtabs { display: flex; gap: 0.6rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.subtab {
+  padding: 0.55rem 1.2rem; border: 1px solid var(--accent); border-radius: 999px;
+  background: none; color: var(--accent); cursor: pointer; font-family: system-ui, sans-serif; font-size: 0.95rem;
+}
+.subtab.active { background: var(--accent); color: #fff; }
+
 /* About / contact */
 .about p, .contact p { max-width: 640px; color: var(--muted); }
 .contact ul { list-style: none; padding: 0; display: flex; gap: 1.5rem; flex-wrap: wrap; font-family: system-ui, sans-serif; }
