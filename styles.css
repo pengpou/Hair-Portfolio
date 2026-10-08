@@ -131,7 +131,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 .back { max-width: var(--max); margin: 0 auto 2rem; text-align: left; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
 .back a { text-decoration: none; color: var(--muted); }
 .back a:hover { color: var(--accent); }
-.collection-sub { margin: -1.5rem 0 2.5rem; color: var(--muted); }
 .scroller { container-type: inline-size; max-width: var(--max); margin: 0 auto 2.5rem; }
 .scroll-area {
   --gap: 0.75rem;
