@@ -24,40 +24,41 @@ if (lightbox) {
   let slides = [];
   let index = 0;
 
-  // Arrow hover bands take their colors from the photo edge they touch.
+  // Arrow hover glow: a soft, mirrored copy of the photo's edge, so the photo appears to bleed outward.
   const prevBtn = lightbox.querySelector('.lb-prev');
   const nextBtn = lightbox.querySelector('.lb-next');
-  const bandCanvas = document.createElement('canvas');
-  const BAND_W = 100, BAND_H = 32;
-  const SHADE = 0.55;   // darken the sampled color so the band stays a darker tint of the photo
-  const ALPHA = 0.7;
+  const glowCanvas = document.createElement('canvas');
+  const GLOW_W = 24, GLOW_H = 48;
+  const GLOW_STRIP = 0.22;   // fraction of the photo's width that gets mirrored outward
+  const GLOW_DIM = 0.8;      // glow is applied slightly darker than the photo (see .lb-arrow::before)
 
-  function edgeGradient(ctx, side) {
-    const px = ctx.getImageData(side === 'left' ? 0 : BAND_W - 2, 0, 2, BAND_H).data;
-    const stops = [];
-    for (let y = 0; y < BAND_H; y++) {
-      let r = 0, g = 0, b = 0;
-      for (let x = 0; x < 2; x++) {
-        const i = (y * 2 + x) * 4;
-        r += px[i]; g += px[i + 1]; b += px[i + 2];
-      }
-      const c = [r, g, b].map((v) => Math.round((v / 2) * SHADE));
-      stops.push('rgba(' + c.join(',') + ',' + ALPHA + ') ' + (y / (BAND_H - 1) * 100).toFixed(1) + '%');
-    }
-    return 'linear-gradient(to bottom, ' + stops.join(', ') + ')';
+  function glowFor(side) {
+    glowCanvas.width = GLOW_W; glowCanvas.height = GLOW_H;
+    const ctx = glowCanvas.getContext('2d', { willReadFrequently: true });
+    const iw = lbImg.naturalWidth, ih = lbImg.naturalHeight;
+    const sw = iw * GLOW_STRIP;
+    ctx.save();
+    ctx.translate(GLOW_W, 0);
+    ctx.scale(-1, 1);   // mirror, so the photo's edge pixels sit right against the photo
+    ctx.drawImage(lbImg, side === 'left' ? 0 : iw - sw, 0, sw, ih, 0, 0, GLOW_W, GLOW_H);
+    ctx.restore();
+    const px = ctx.getImageData(0, 0, GLOW_W, GLOW_H).data;
+    let lum = 0;
+    for (let i = 0; i < px.length; i += 4) lum += 0.2126 * px[i] + 0.7152 * px[i + 1] + 0.0722 * px[i + 2];
+    lum = (lum / (px.length / 4)) * GLOW_DIM;
+    return { url: 'url(' + glowCanvas.toDataURL() + ')', tone: lum > 135 ? 'dark' : 'light' };
   }
 
   function updateBands() {
     try {
-      bandCanvas.width = BAND_W; bandCanvas.height = BAND_H;
-      const ctx = bandCanvas.getContext('2d', { willReadFrequently: true });
-      ctx.drawImage(lbImg, 0, 0, BAND_W, BAND_H);
-      prevBtn.style.setProperty('--band', edgeGradient(ctx, 'left'));
-      nextBtn.style.setProperty('--band', edgeGradient(ctx, 'right'));
+      [[prevBtn, 'left'], [nextBtn, 'right']].forEach(([btn, side]) => {
+        const g = glowFor(side);
+        btn.style.setProperty('--glow', g.url);
+        btn.dataset.tone = g.tone;   // dark arrow on light glow, white arrow on dark glow
+      });
     } catch (e) {
-      // canvas unavailable (e.g. opened from file://): fall back to the plain dark band
-      prevBtn.style.removeProperty('--band');
-      nextBtn.style.removeProperty('--band');
+      // pixels unreadable (e.g. opened from file://): fall back to the plain dark band
+      [prevBtn, nextBtn].forEach((btn) => { btn.style.removeProperty('--glow'); delete btn.dataset.tone; });
     }
   }
   lbImg.addEventListener('load', updateBands);

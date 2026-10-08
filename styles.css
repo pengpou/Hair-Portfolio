@@ -162,7 +162,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .lb-label { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); text-transform: uppercase; letter-spacing: 0.2em; color: var(--ink); text-shadow: 0 1px 12px rgba(255, 255, 255, 0.6); }
 .lb-label::after { content: ""; display: block; width: 50px; height: 2px; background: var(--accent); margin: 0.8rem auto 0; }
 .lb-stage { display: flex; align-items: center; justify-content: center; gap: 1rem; width: 100%; max-width: 900px; }
-.lb-img { min-width: 0; flex: 0 1 auto; height: auto; max-height: 72vh; max-width: calc(100% - 8rem); object-fit: contain; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+.lb-img { min-width: 0; flex: 0 1 auto; height: auto; max-height: 72vh; max-width: calc(100% - 8rem); object-fit: contain; box-shadow: 0 22px 30px -14px rgba(0, 0, 0, 0.45); }
 .lb-arrow, .lb-close {
   background: rgba(255, 255, 255, 0.9); color: var(--ink); border: 1px solid rgba(17, 17, 17, 0.15); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
   cursor: pointer; font: inherit; line-height: 1; transition: background 0.2s, border-color 0.2s;
@@ -188,11 +188,13 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .lightbox .lb-arrow::before {
   content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
-  /* --band is a vertical gradient of the photo's edge colors, set by script.js; the mask supplies the horizontal fade */
-  background: var(--band, linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)));
+  /* --glow is a mirrored, blurred copy of the photo's edge (set by script.js); the mask supplies the eased fade */
+  background-image: var(--glow, linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)));
+  background-size: 100% 100%; filter: blur(8px) brightness(0.8);
 }
-.lightbox .lb-prev::before { -webkit-mask-image: linear-gradient(to left, #000, transparent); mask-image: linear-gradient(to left, #000, transparent); }
-.lightbox .lb-next::before { -webkit-mask-image: linear-gradient(to right, #000, transparent); mask-image: linear-gradient(to right, #000, transparent); }
+.lightbox .lb-prev::before { -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); mask-image: linear-gradient(to left, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); }
+.lightbox .lb-next::before { -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); mask-image: linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); }
+.lightbox .lb-arrow[data-tone="dark"]:hover, .lightbox .lb-arrow[data-tone="dark"]:focus-visible { color: var(--ink); }
 .lightbox .lb-arrow:hover, .lightbox .lb-arrow:focus-visible { background: none; color: #fff; }
 .lightbox .lb-arrow:hover::before, .lightbox .lb-arrow:focus-visible::before { opacity: 1; }
 .lightbox .lb-arrow > span { position: relative; z-index: 1; }
