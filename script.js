@@ -232,3 +232,28 @@ if (requestForm) {
     }
   });
 }
+// Silver theme motion ------------------------------------------------------------------
+// Header: transparent over the hero, solid once the page is scrolled.
+const siteHeader = document.querySelector('.site-header');
+if (siteHeader) {
+  const updateHeader = () => siteHeader.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+}
+
+// Sections and photos fade up gently as they scroll into view (skipped for reduced-motion and old browsers).
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const targets = document.querySelectorAll(
+    '.section-title, .price-group, .price-note, .photo-grid, .service-card, .contact > *, .request-sub, .request-form, .collection .scroller'
+  );
+  const seen = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  targets.forEach((el, i) => {
+    el.classList.add('reveal');
+    if (el.matches('.price-group, .service-card')) el.style.transitionDelay = ((i % 4) * 0.12) + 's';
+    seen.observe(el);
+  });
+}
