@@ -33,7 +33,9 @@
       <!-- Replace each <span>Photo</span> with: <img src="images/your-photo.jpg" alt="Description"> -->
       <div class="scroller">
         <div class="scroll-area" tabindex="0" aria-label="Men's cuts photo collection">
-        <figure class="photo-box"><img src="images/mens-cuts/card.jpg" alt="Men's cut, side profile"></figure>
+        <button class="photo-open" data-set="set-1" aria-label="Open before and after photos">
+          <figure class="photo-box"><img src="images/mens-cuts/card.jpg" alt="Men's cut, side profile"><figcaption>Before &amp; After</figcaption></figure>
+        </button>
         <figure class="photo-box"><span>Photo</span></figure>
         <figure class="photo-box"><span>Photo</span></figure>
         <figure class="photo-box"><span>Photo</span></figure>
@@ -66,6 +68,25 @@
       <a class="btn" href="index.html#contact">Book now</a>
     </section>
   </main>
+
+  <!-- Before/after sets. Each <img> is one slide, shown in this order; data-label is the heading above it. -->
+  <div class="lightbox-set" id="set-1" hidden>
+    <img data-src="images/mens-cuts/1-after-front.jpg" data-label="After" alt="After: front view">
+    <img data-src="images/mens-cuts/2-after-side.jpg" data-label="After" alt="After: side view">
+    <img data-src="images/mens-cuts/3-before-front.jpg" data-label="Before" alt="Before: front view">
+    <img data-src="images/mens-cuts/4-before-side.jpg" data-label="Before" alt="Before: side view">
+  </div>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Before and after photos">
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <h2 class="lb-label"></h2>
+    <div class="lb-stage">
+      <button class="lb-arrow lb-prev" aria-label="Previous photo">&#8249;</button>
+      <img class="lb-img" src="" alt="">
+      <button class="lb-arrow lb-next" aria-label="Next photo">&#8250;</button>
+    </div>
+    <p class="lb-count"></p>
+  </dialog>
 
   <footer class="site-footer">
     <p>Boston, MA</p>

@@ -144,3 +144,38 @@ ul { list-style: none; margin: 0; padding: 0; }
 .scroll-area { --row: calc((100cqw - 2 * var(--gap)) / 3 * 1.25); grid-auto-rows: var(--row); }
 .scroll-area .photo-box { height: 100%; aspect-ratio: auto; scroll-snap-align: start; }
 .scroll-area:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Before/after popup */
+.photo-open { display: block; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; height: 100%; width: 100%; }
+.photo-open .photo-box { transition: transform 0.25s, box-shadow 0.25s; }
+.photo-open:hover .photo-box { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18); }
+.photo-open:hover figcaption, .photo-open:focus-visible figcaption { opacity: 1; }
+.photo-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.lightbox {
+  position: fixed; inset: 0; box-sizing: border-box;
+  width: 100%; height: 100%; max-width: 100%; max-height: 100%; margin: 0; padding: 1.5rem 1rem;
+  border: 0; background: rgba(10, 9, 8, 0.94); color: #fff;
+  flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+}
+.lightbox[open] { display: flex; }
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.6); }
+.lb-label { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); text-transform: uppercase; letter-spacing: 0.2em; color: #fff; }
+.lb-label::after { content: ""; display: block; width: 50px; height: 2px; background: var(--accent); margin: 0.8rem auto 0; }
+.lb-stage { display: flex; align-items: center; justify-content: center; gap: 1rem; width: 100%; max-width: 900px; }
+.lb-img { min-width: 0; flex: 0 1 auto; height: auto; max-height: 72vh; max-width: calc(100% - 8rem); object-fit: contain; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+.lb-arrow, .lb-close {
+  background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer; font: inherit; line-height: 1; transition: background 0.2s, border-color 0.2s;
+}
+.lb-arrow { width: 3.2rem; height: 3.2rem; border-radius: 50%; font-size: 2rem; flex-shrink: 0; }
+.lb-arrow:hover, .lb-close:hover { background: var(--accent); border-color: var(--accent); }
+.lb-close { position: absolute; top: 1rem; right: 1rem; width: 2.6rem; height: 2.6rem; border-radius: 50%; font-size: 1.6rem; }
+.lb-count { margin: 0; font-size: 0.8rem; letter-spacing: 0.25em; color: #bdb5ad; }
+.lb-arrow:focus-visible, .lb-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 600px) {
+  .lb-stage { gap: 0.4rem; }
+  .lb-arrow { width: 2.4rem; height: 2.4rem; font-size: 1.5rem; }
+  .lb-img { max-width: calc(100% - 5.6rem); }
+}
