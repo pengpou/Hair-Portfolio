@@ -188,9 +188,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .lightbox .lb-arrow::before {
   content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
-  /* --band is a vertical gradient of the photo's edge colors (set by script.js); the mask supplies the eased fade */
-  background-image: var(--band, linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)));
-  background-size: 100% 100%;
+  /* --glow is a mirrored, blurred copy of the photo's edge (set by script.js); the mask supplies the eased fade */
+  background-image: var(--glow, linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)));
+  background-size: 100% 100%; filter: blur(8px) brightness(0.8);
 }
 .lightbox .lb-prev::before { -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); mask-image: linear-gradient(to left, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); }
 .lightbox .lb-next::before { -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); mask-image: linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.25) 65%, transparent); }
@@ -202,8 +202,3 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 600px) {
   .lightbox .lb-arrow { width: 2.8rem; height: auto; font-size: 2.2rem; }
 }
-
-/* Combination: band tucks a few px under the photo (no hairline gap) and the photo sits above it */
-.lightbox .lb-img { position: relative; z-index: 1; }
-.lightbox .lb-prev::before { right: -8px; }
-.lightbox .lb-next::before { left: -8px; }
