@@ -178,3 +178,23 @@ ul { list-style: none; margin: 0; padding: 0; }
   .lb-arrow { width: 2.4rem; height: 2.4rem; font-size: 1.5rem; }
   .lb-img { max-width: calc(100% - 5.6rem); }
 }
+
+/* Popup arrows: no circle; hovering shows a dark band the height of the photo that fades toward the screen edge */
+.lightbox .lb-stage { align-items: stretch; gap: 0; }
+.lightbox .lb-img { align-self: center; }
+.lightbox .lb-arrow {
+  position: relative; align-self: stretch; width: 6rem; height: auto; border: 0; border-radius: 0;
+  background: none; box-shadow: none; color: var(--ink); font-size: 3rem;
+}
+.lightbox .lb-arrow::before {
+  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
+}
+.lightbox .lb-prev::before { background: linear-gradient(to left, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0)); }
+.lightbox .lb-next::before { background: linear-gradient(to right, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0)); }
+.lightbox .lb-arrow:hover, .lightbox .lb-arrow:focus-visible { background: none; color: #fff; }
+.lightbox .lb-arrow:hover::before, .lightbox .lb-arrow:focus-visible::before { opacity: 1; }
+.lightbox .lb-arrow > span { position: relative; z-index: 1; }
+.lightbox .lb-arrow:focus-visible { outline: none; }
+@media (max-width: 600px) {
+  .lightbox .lb-arrow { width: 2.8rem; height: auto; font-size: 2.2rem; }
+}
