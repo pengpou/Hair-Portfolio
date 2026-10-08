@@ -249,3 +249,25 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
 
 .request-form[hidden], .form-sent[hidden], .form-error[hidden] { display: none; }
+
+/* Service bubbles grouped like the price list */
+.pill-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 3rem; }
+.pill-group h3 {
+  margin: 0 0 0.7rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line);
+  font-family: var(--font); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+}
+@media (max-width: 640px) { .pill-groups { grid-template-columns: 1fr; gap: 1.2rem; } }
+
+/* Uploaded photo list with remove buttons */
+.file-list { max-width: 460px; }
+.file-list li { display: flex; align-items: center; gap: 0.9rem; padding: 0.35rem 0; }
+.file-list li > span { overflow-wrap: anywhere; }
+.file-remove {
+  margin-left: auto; padding: 0.25rem 0.7rem; font: inherit; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); background: none; border: 1px solid var(--line); cursor: pointer; transition: all 0.2s;
+}
+.file-remove:hover, .file-remove:focus-visible { color: #b3261e; border-color: #b3261e; outline: none; }
+.upload-box.disabled span { opacity: 0.5; cursor: not-allowed; border-style: solid; }
+.upload-box.disabled input { cursor: not-allowed; }
+
+.services-pick > legend { padding-bottom: 0.9rem; }

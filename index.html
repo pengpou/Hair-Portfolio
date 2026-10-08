@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Name | Hair Stylist Portfolio</title>
   <meta name="description" content="Men's cuts, women's cuts, and chemical services including permanent waves and color in Boston, MA.">
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
   <a class="skip" href="#prices">Skip to content</a>
@@ -142,18 +142,38 @@
 
         <fieldset class="field services-pick">
           <legend>Service <em>(choose all that apply)</em></legend>
-          <div class="pills">
-          <label class="pill"><input type="checkbox" class="service-opt" value="Men's Haircut"><span>Men's Haircut</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Women's Haircut"><span>Women's Haircut</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Bang Trim"><span>Bang Trim</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Body Wave"><span>Body Wave</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Spiral Perm"><span>Spiral Perm</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Root Perm"><span>Root Perm</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Root Touch-Up"><span>Root Touch-Up</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Highlights"><span>Highlights</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Full Color"><span>Full Color</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Balayage"><span>Balayage</span></label>
-          <label class="pill"><input type="checkbox" class="service-opt" value="Toning"><span>Toning</span></label>
+                    <div class="pill-groups">
+            <div class="pill-group">
+              <h3>Men's Cuts</h3>
+              <div class="pills">
+              <label class="pill"><input type="checkbox" class="service-opt" value="Men's Haircut"><span>Haircut</span></label>
+              </div>
+            </div>
+            <div class="pill-group">
+              <h3>Women's Cuts</h3>
+              <div class="pills">
+              <label class="pill"><input type="checkbox" class="service-opt" value="Women's Haircut"><span>Haircut</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Bang Trim"><span>Bang Trim</span></label>
+              </div>
+            </div>
+            <div class="pill-group">
+              <h3>Permanent Waves</h3>
+              <div class="pills">
+              <label class="pill"><input type="checkbox" class="service-opt" value="Body Wave"><span>Body Wave</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Spiral Perm"><span>Spiral Perm</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Root Perm"><span>Root Perm</span></label>
+              </div>
+            </div>
+            <div class="pill-group">
+              <h3>Color</h3>
+              <div class="pills">
+              <label class="pill"><input type="checkbox" class="service-opt" value="Root Touch-Up"><span>Root Touch-Up</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Highlights"><span>Highlights</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Full Color"><span>Full Color</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Balayage"><span>Balayage</span></label>
+              <label class="pill"><input type="checkbox" class="service-opt" value="Toning"><span>Toning</span></label>
+              </div>
+            </div>
           </div>
         </fieldset>
 
@@ -161,7 +181,7 @@
 
         <div class="field upload">
           <span>Photos</span>
-          <p class="hint">Upload a photo of yourself and your hair (up to 3). PNG, JPEG, iPhone photos and other image files all work. Large photos are shrunk automatically.</p>
+          <p class="hint">Upload a photo of yourself and your hair (up to 3). Add them all at once or one at a time, and remove any you don't want. PNG, JPEG, iPhone photos and other image files all work, and large photos are shrunk automatically.</p>
           <label class="upload-box"><input type="file" id="photo-picker" accept="image/*,.heic,.heif" multiple><span>Choose photos</span></label>
           <ul class="file-list" id="file-list"></ul>
         </div>
@@ -176,6 +196,6 @@
     <p>&copy; <span id="year"></span> Your Name Hair Studio</p>
   </footer>
 
-  <script src="script.js?v=16"></script>
+  <script src="script.js?v=17"></script>
 </body>
 </html>

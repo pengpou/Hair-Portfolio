@@ -138,17 +138,45 @@ if (requestForm) {
   function showError(msg) { errorBox.textContent = msg; errorBox.hidden = !msg; }
   function resetButton() { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
 
-  picker.addEventListener('change', () => {
-    const files = [...picker.files];
+  // The photos chosen so far. Each pick adds to this list instead of replacing it, and each one can be removed.
+  let selected = [];
+  const pickerBox = picker.closest('.upload-box');
+  const pickerLabel = pickerBox.querySelector('span');
+
+  function renderFiles() {
     fileList.textContent = '';
-    files.slice(0, MAX_FILES).forEach((f) => {
+    selected.forEach((f, i) => {
       const li = document.createElement('li');
-      li.textContent = f.name;
+      const name = document.createElement('span');
+      name.textContent = f.name;
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'file-remove';
+      removeBtn.textContent = 'Remove';
+      removeBtn.setAttribute('aria-label', 'Remove ' + f.name);
+      removeBtn.addEventListener('click', () => { selected.splice(i, 1); showError(''); renderFiles(); });
+      li.append(name, removeBtn);
       fileList.appendChild(li);
     });
-    showError(files.length > MAX_FILES ? 'Only the first ' + MAX_FILES + ' photos will be sent.' : '');
-  });
+    const full = selected.length >= MAX_FILES;
+    picker.disabled = full;
+    pickerBox.classList.toggle('disabled', full);
+    pickerLabel.textContent = full ? 'Maximum ' + MAX_FILES + ' photos' : (selected.length ? 'Add another photo' : 'Choose photos');
+  }
 
+  picker.addEventListener('change', () => {
+    const incoming = [...picker.files];
+    picker.value = '';   // so picking the same photo again still counts as a change
+    let skipped = 0;
+    incoming.forEach((f) => {
+      const same = selected.some((s) => s.name === f.name && s.size === f.size && s.lastModified === f.lastModified);
+      if (same) return;
+      if (selected.length >= MAX_FILES) { skipped++; return; }
+      selected.push(f);
+    });
+    showError(skipped ? 'You can attach up to ' + MAX_FILES + ' photos. Remove one to add another.' : '');
+    renderFiles();
+  });
   requestForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     showError('');
@@ -158,7 +186,7 @@ if (requestForm) {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending\u2026';
     try {
-      const files = [...picker.files].slice(0, MAX_FILES);
+      const files = selected.slice();
       let ready = await Promise.all(files.map((f) => (f.size > 1.5e6 ? compressImage(f, 1800, 0.85) : f)));
       if (totalSize(ready) > MAX_TOTAL) ready = await Promise.all(files.map((f) => compressImage(f, 1200, 0.7)));
       if (totalSize(ready) > MAX_TOTAL) {
@@ -185,7 +213,8 @@ if (requestForm) {
       if (!result.success) throw new Error(result.error || 'not sent');
 
       requestForm.reset();
-      fileList.textContent = '';
+      selected = [];
+      renderFiles();
       requestForm.hidden = true;
       const sent = document.getElementById('form-sent');
       sent.hidden = false;
