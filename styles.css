@@ -473,7 +473,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 .collection { padding-top: 8.5rem; background: radial-gradient(rgba(59, 42, 34, 0.12) 1.3px, transparent 1.6px) 0 0 / 24px 24px, var(--bg); }
 .back { font-family: var(--hand); font-weight: 700; font-size: 1.5rem; letter-spacing: 0; text-transform: none; }
 .back a { color: var(--accent); }
-.collection .photo-box { border-radius: 14px; box-shadow: 0 0 0 2px var(--ink); background: var(--butter); }
+.collection .photo-box { border-radius: 14px; border: 2px solid var(--ink); box-shadow: none; background: var(--butter); }
 .collection .scroll-area .photo-box:nth-child(3n+2) { background: var(--peach); }
 .collection .scroll-area .photo-box:nth-child(3n) { background: var(--sage); }
 
@@ -503,3 +503,5 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
   .request-form .btn { width: 100%; max-width: 14rem; }
 }
 .photo-grid { margin-bottom: 3.2rem; }
+/* the first row sits at the top of the scroll area, so a hover lift would be clipped: brighten instead */
+.collection .photo-open:hover { transform: none; box-shadow: none; filter: brightness(1.06); }
