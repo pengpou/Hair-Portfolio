@@ -147,15 +147,20 @@ if (requestForm) {
     fileList.textContent = '';
     selected.forEach((f, i) => {
       const li = document.createElement('li');
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'file-row';
+      row.setAttribute('aria-label', 'Remove ' + f.name);
       const name = document.createElement('span');
+      name.className = 'file-name';
       name.textContent = f.name;
-      const removeBtn = document.createElement('button');
-      removeBtn.type = 'button';
-      removeBtn.className = 'file-remove';
-      removeBtn.textContent = '\u00d7';
-      removeBtn.setAttribute('aria-label', 'Remove ' + f.name);
-      removeBtn.addEventListener('click', () => { selected.splice(i, 1); showError(''); renderFiles(); });
-      li.append(name, removeBtn);
+      const x = document.createElement('span');
+      x.className = 'file-x';
+      x.setAttribute('aria-hidden', 'true');
+      x.textContent = '\u00d7';
+      row.append(name, x);
+      row.addEventListener('click', () => { selected.splice(i, 1); showError(''); renderFiles(); });
+      li.appendChild(row);
       fileList.appendChild(li);
     });
     const full = selected.length >= MAX_FILES;

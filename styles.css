@@ -242,7 +242,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .upload-box:hover span, .upload-box input:focus-visible + span { background: var(--ink); color: #fff; }
 .file-list { list-style: none; margin: 0.8rem 0 0; padding: 0; font-size: 0.9rem; color: var(--muted); }
-.file-list li::before { content: "\2713\00a0"; color: var(--accent); }
 .form-error { margin: 0; padding: 0.8rem 1rem; background: #fff; border-left: 3px solid #b3261e; color: #b3261e; font-size: 0.9rem; }
 .request-form .btn { justify-self: center; cursor: pointer; }
 .request-form .btn:disabled { opacity: 0.6; cursor: wait; }
@@ -259,11 +258,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 640px) { .pill-groups { grid-template-columns: 1fr; gap: 1.2rem; } }
 
 /* Uploaded photo list with remove buttons */
-.file-list { max-width: 460px; }
-.file-list li { display: flex; align-items: center; gap: 0.9rem; padding: 0.35rem 0; }
-.file-list li > span { overflow-wrap: anywhere; }
-.file-remove { margin-left: auto; padding: 0 0.4rem; font: inherit; font-size: 1.5rem; line-height: 1; color: var(--muted); background: none; border: 0; box-shadow: none; cursor: pointer; transition: color 0.2s; }
-.file-remove:hover, .file-remove:focus-visible { color: #b3261e; outline: none; }
 .upload-box.disabled span { opacity: 0.5; cursor: not-allowed; border-style: solid; }
 .upload-box.disabled input { cursor: not-allowed; }
 
@@ -271,3 +265,17 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .req { color: #b3261e; font-weight: 400; }
 .req-note { margin: 0; font-size: 0.8rem; color: var(--muted); }
+
+/* Uploaded photos: the whole row (check mark to x) highlights on hover and removes the photo when clicked.
+   The list ends just before the right edge of the Send request button (which is 14rem wide and centered). */
+.request-form .btn { width: 14rem; text-align: center; }
+.file-list { width: calc(50% + 7rem - 0.6rem); max-width: 100%; }
+.file-row {
+  display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.45rem 0.5rem;
+  font: inherit; color: var(--muted); text-align: left; background: none; border: 0; cursor: pointer; transition: background 0.2s;
+}
+.file-row::before { content: "\2713"; color: var(--accent); }
+.file-name { overflow-wrap: anywhere; }
+.file-x { margin-left: auto; font-size: 1.5rem; line-height: 1; transition: color 0.2s; }
+.file-row:hover, .file-row:focus-visible { background: rgba(17, 17, 17, 0.07); outline: none; }
+.file-row:hover .file-x, .file-row:focus-visible .file-x { color: #b3261e; }
