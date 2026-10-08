@@ -94,3 +94,88 @@ if (lightbox) {
   // close when clicking the dark area around the photo
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
 }
+
+// Appointment request form -------------------------------------------------------------
+// Shrinks a photo to a JPEG so the whole request stays under the form service's 10 MB limit.
+// Formats the browser can't decode (e.g. HEIC outside Safari) are sent unchanged.
+function compressImage(file, maxDim, quality) {
+  return createImageBitmap(file).then((bmp) => {
+    const scale = Math.min(1, maxDim / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';   // transparent PNGs would otherwise turn black
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        resolve(blob ? new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' }) : file);
+      }, 'image/jpeg', quality);
+    });
+  }).catch(() => file);
+}
+
+const requestForm = document.getElementById('request-form');
+if (requestForm) {
+  const MAX_FILES = 3;
+  const MAX_TOTAL = 9 * 1024 * 1024;   // FormSubmit allows 10 MB in total; leave room for the text fields
+  const picker = document.getElementById('photo-picker');
+  const fileList = document.getElementById('file-list');
+  const errorBox = document.getElementById('form-error');
+  const servicesField = document.getElementById('services-field');
+  const submitBtn = document.getElementById('form-submit');
+  const slots = requestForm.querySelectorAll('input[type="file"][name^="Photo"]');
+  const totalSize = (files) => files.reduce((sum, f) => sum + f.size, 0);
+
+  function showError(msg) { errorBox.textContent = msg; errorBox.hidden = !msg; }
+  function resetButton() { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
+
+  picker.addEventListener('change', () => {
+    const files = [...picker.files];
+    fileList.textContent = '';
+    files.slice(0, MAX_FILES).forEach((f) => {
+      const li = document.createElement('li');
+      li.textContent = f.name;
+      fileList.appendChild(li);
+    });
+    showError(files.length > MAX_FILES ? 'Only the first ' + MAX_FILES + ' photos will be sent.' : '');
+  });
+
+  requestForm.addEventListener('submit', async (e) => {
+    e.preventDefault();   // the form is sent below, after the photos are prepared
+    showError('');
+    const chosen = [...requestForm.querySelectorAll('input.service-opt:checked')].map((i) => i.value);
+    if (!chosen.length) { showError('Please choose at least one service.'); return; }
+    servicesField.value = chosen.join(', ');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending\u2026';
+    const files = [...picker.files].slice(0, MAX_FILES);
+    let ready = await Promise.all(files.map((f) => (f.size > 1.5e6 ? compressImage(f, 1800, 0.85) : f)));
+    if (totalSize(ready) > MAX_TOTAL) ready = await Promise.all(files.map((f) => compressImage(f, 1200, 0.7)));
+    if (totalSize(ready) > MAX_TOTAL) {
+      showError('Those photos are too large to send. Please choose smaller photos or fewer of them.');
+      resetButton();
+      return;
+    }
+    slots.forEach((slot, i) => {
+      if (ready[i]) {
+        const dt = new DataTransfer();
+        dt.items.add(ready[i]);
+        slot.files = dt.files;
+        slot.disabled = false;
+      } else {
+        slot.disabled = true;   // nothing chosen for this slot
+      }
+    });
+    requestForm.submit();
+  });
+
+  window.addEventListener('pageshow', resetButton);   // Back button after sending
+
+  if (new URLSearchParams(location.search).get('sent') === '1') {
+    document.getElementById('form-sent').hidden = false;
+    requestForm.hidden = true;
+  }
+}

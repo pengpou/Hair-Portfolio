@@ -202,3 +202,50 @@ ul { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 600px) {
   .lightbox .lb-arrow { width: 2.8rem; height: auto; font-size: 2.2rem; }
 }
+
+/* Appointment request form */
+.request { padding: 6rem 1.5rem; background: var(--bg-soft); text-align: center; }
+.request-sub { max-width: 560px; margin: -1.5rem auto 2.5rem; color: var(--muted); }
+.form-sent { max-width: 560px; margin: 0 auto; padding: 1.5rem; background: #fff; border: 1px solid var(--accent); }
+.request-form { max-width: 760px; margin: 0 auto; display: grid; gap: 1.6rem; text-align: left; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.field { display: block; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > span, .field > legend {
+  display: block; padding: 0; margin-bottom: 0.5rem; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink);
+}
+.field legend em { font-style: normal; letter-spacing: 0.05em; text-transform: none; color: var(--muted); }
+.field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea {
+  width: 100%; padding: 0.8rem 0.9rem; font: inherit; font-size: 1rem; color: var(--ink);
+  background: #fff; border: 1px solid var(--line); border-radius: 0; transition: border-color 0.2s;
+}
+.field textarea { resize: vertical; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.pill { position: relative; cursor: pointer; }
+.pill input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.pill span {
+  display: inline-block; padding: 0.6rem 1.2rem; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+  background: #fff; border: 1px solid var(--line); border-radius: 999px; transition: all 0.2s;
+}
+.pill:hover span { border-color: var(--ink); }
+.pill input:checked + span { background: var(--ink); border-color: var(--ink); color: #fff; }
+.pill input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hint { margin: 0 0 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.upload-box { display: inline-block; position: relative; }
+.upload-box input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-box span {
+  display: inline-block; padding: 0.8rem 1.6rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+  background: #fff; border: 1px dashed var(--ink); color: var(--ink); margin: 0;
+}
+.upload-box:hover span, .upload-box input:focus-visible + span { background: var(--ink); color: #fff; }
+.file-list { list-style: none; margin: 0.8rem 0 0; padding: 0; font-size: 0.9rem; color: var(--muted); }
+.file-list li::before { content: "\2713\00a0"; color: var(--accent); }
+.form-error { margin: 0; padding: 0.8rem 1rem; background: #fff; border-left: 3px solid #b3261e; color: #b3261e; font-size: 0.9rem; }
+.request-form .btn { justify-self: center; cursor: pointer; }
+.request-form .btn:disabled { opacity: 0.6; cursor: wait; }
+@media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
+
+.request-form[hidden], .form-sent[hidden], .form-error[hidden] { display: none; }
