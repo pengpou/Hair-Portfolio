@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Name | Hair Stylist Portfolio</title>
   <meta name="description" content="Men's cuts, women's cuts, and chemical services including permanent waves and color in Boston, MA.">
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
   <a class="skip" href="#prices">Skip to content</a>
@@ -127,12 +127,8 @@
       <p class="request-sub">Tell me what you're looking for and send a photo of yourself and your hair. Your request is sent straight to my email.</p>
       <p class="form-sent" id="form-sent" role="status" hidden>Thank you! Your request was sent. I'll get back to you by email soon.</p>
 
-      <form class="request-form" id="request-form" action="https://formsubmit.co/mattheworoupeng@gmail.com" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="_subject" value="New appointment request">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://pengpou.github.io/Hair-Portfolio/?sent=1#request">
-        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <form class="request-form" id="request-form">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="Services" id="services-field">
 
         <div class="field-row">
@@ -169,10 +165,6 @@
           <label class="upload-box"><input type="file" id="photo-picker" accept="image/*,.heic,.heif" multiple><span>Choose photos</span></label>
           <ul class="file-list" id="file-list"></ul>
         </div>
-        <!-- the chosen photos are copied into these slots right before sending -->
-        <input type="file" name="Photo 1" hidden>
-        <input type="file" name="Photo 2" hidden>
-        <input type="file" name="Photo 3" hidden>
 
         <p class="form-error" id="form-error" role="alert" hidden></p>
         <button class="btn" type="submit" id="form-submit">Send request</button>
@@ -184,6 +176,6 @@
     <p>&copy; <span id="year"></span> Your Name Hair Studio</p>
   </footer>
 
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>

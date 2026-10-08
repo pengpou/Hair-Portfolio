@@ -118,15 +118,22 @@ function compressImage(file, maxDim, quality) {
 
 const requestForm = document.getElementById('request-form');
 if (requestForm) {
+  // The request goes to a small Google Apps Script (see apps-script/Code.gs) that emails it, photos attached.
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzxj36hYnT6i8_6XyJb0hHU7kMxY4GHO-j-WGSixISecOY5zZi00znNvo8U6tsGgvxa/exec';
+  const TOKEN = '4cgC1yxaESuFSrsadQgqTZLp';
   const MAX_FILES = 3;
-  const MAX_TOTAL = 9 * 1024 * 1024;   // FormSubmit allows 10 MB in total; leave room for the text fields
+  const MAX_TOTAL = 12 * 1024 * 1024;   // total photo size before sending
   const picker = document.getElementById('photo-picker');
   const fileList = document.getElementById('file-list');
   const errorBox = document.getElementById('form-error');
-  const servicesField = document.getElementById('services-field');
   const submitBtn = document.getElementById('form-submit');
-  const slots = requestForm.querySelectorAll('input[type="file"][name^="Photo"]');
   const totalSize = (files) => files.reduce((sum, f) => sum + f.size, 0);
+  const toBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(',')[1]);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
 
   function showError(msg) { errorBox.textContent = msg; errorBox.hidden = !msg; }
   function resetButton() { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
@@ -143,39 +150,51 @@ if (requestForm) {
   });
 
   requestForm.addEventListener('submit', async (e) => {
-    e.preventDefault();   // the form is sent below, after the photos are prepared
+    e.preventDefault();
     showError('');
     const chosen = [...requestForm.querySelectorAll('input.service-opt:checked')].map((i) => i.value);
     if (!chosen.length) { showError('Please choose at least one service.'); return; }
-    servicesField.value = chosen.join(', ');
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending\u2026';
-    const files = [...picker.files].slice(0, MAX_FILES);
-    let ready = await Promise.all(files.map((f) => (f.size > 1.5e6 ? compressImage(f, 1800, 0.85) : f)));
-    if (totalSize(ready) > MAX_TOTAL) ready = await Promise.all(files.map((f) => compressImage(f, 1200, 0.7)));
-    if (totalSize(ready) > MAX_TOTAL) {
-      showError('Those photos are too large to send. Please choose smaller photos or fewer of them.');
-      resetButton();
-      return;
-    }
-    slots.forEach((slot, i) => {
-      if (ready[i]) {
-        const dt = new DataTransfer();
-        dt.items.add(ready[i]);
-        slot.files = dt.files;
-        slot.disabled = false;
-      } else {
-        slot.disabled = true;   // nothing chosen for this slot
+    try {
+      const files = [...picker.files].slice(0, MAX_FILES);
+      let ready = await Promise.all(files.map((f) => (f.size > 1.5e6 ? compressImage(f, 1800, 0.85) : f)));
+      if (totalSize(ready) > MAX_TOTAL) ready = await Promise.all(files.map((f) => compressImage(f, 1200, 0.7)));
+      if (totalSize(ready) > MAX_TOTAL) {
+        showError('Those photos are too large to send. Please choose smaller photos or fewer of them.');
+        resetButton();
+        return;
       }
-    });
-    requestForm.submit();
+      const photos = await Promise.all(ready.map(async (f) => ({ name: f.name, type: f.type, data: await toBase64(f) })));
+      const field = (name) => requestForm.elements[name].value;
+      const payload = {
+        token: TOKEN,
+        website: field('website'),   // hidden spam trap
+        firstName: field('First Name'),
+        lastName: field('Last Name'),
+        email: field('email'),
+        phone: field('Phone'),
+        services: chosen.join(', '),
+        info: field('Additional Information'),
+        photos: photos,
+      };
+      // text/plain keeps this a "simple" request, which Apps Script accepts without a CORS preflight
+      const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) });
+      const result = await res.json();
+      if (!result.success) throw new Error(result.error || 'not sent');
+
+      requestForm.reset();
+      fileList.textContent = '';
+      requestForm.hidden = true;
+      const sent = document.getElementById('form-sent');
+      sent.hidden = false;
+      sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      showError(err && err.message && err.message !== 'not sent' && err.message !== 'Could not send the request.' && err.message !== 'forbidden' && !/fetch|JSON|network/i.test(err.message)
+        ? err.message
+        : 'Sorry, your request could not be sent. Please email mattheworoupeng@gmail.com or call +1 (832)-682-9841.');
+      resetButton();
+    }
   });
-
-  window.addEventListener('pageshow', resetButton);   // Back button after sending
-
-  if (new URLSearchParams(location.search).get('sent') === '1') {
-    document.getElementById('form-sent').hidden = false;
-    requestForm.hidden = true;
-  }
 }
