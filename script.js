@@ -34,10 +34,14 @@ if (lightbox) {
   }
 
   document.querySelectorAll('.photo-open').forEach((btn) => {
-    btn.addEventListener('click', () => {
+    const open = () => {
       slides = [...document.getElementById(btn.dataset.set).querySelectorAll('img')];
       show(0);
       lightbox.showModal();
+    };
+    btn.addEventListener('click', open);
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
     });
   });
 

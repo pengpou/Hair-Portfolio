@@ -146,9 +146,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 .scroll-area:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* Before/after popup */
-.photo-open { display: block; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; height: 100%; width: 100%; }
-.photo-open .photo-box { transition: transform 0.25s, box-shadow 0.25s; }
-.photo-open:hover .photo-box { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18); }
+.photo-open { cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; }
+.photo-open:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18); }
 .photo-open:hover figcaption, .photo-open:focus-visible figcaption { opacity: 1; }
 .photo-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
