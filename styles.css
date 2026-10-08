@@ -115,3 +115,32 @@ ul { list-style: none; margin: 0; padding: 0; }
   .price-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .service-grid { grid-template-columns: 1fr; }
 }
+/* Photo link (home page cards) */
+.photo-link { display: block; width: 100%; text-decoration: none; }
+.photo-link .photo-box { transition: transform 0.25s, box-shadow 0.25s; }
+.photo-link:hover .photo-box { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18); }
+.photo-box figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.2rem 1rem 0.9rem; color: #fff;
+  font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55)); opacity: 0; transition: opacity 0.25s;
+}
+.photo-link:hover figcaption, .photo-link:focus-visible figcaption { opacity: 1; }
+
+/* Collection page: 3 per row, 3 rows visible, scroll for the rest */
+.collection { padding: 4rem 1.5rem 6rem; text-align: center; }
+.back { max-width: var(--max); margin: 0 auto 2rem; text-align: left; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+.back a { text-decoration: none; color: var(--muted); }
+.back a:hover { color: var(--accent); }
+.collection-sub { margin: -1.5rem 0 2.5rem; color: var(--muted); }
+.scroller { container-type: inline-size; max-width: var(--max); margin: 0 auto 2.5rem; }
+.scroll-area {
+  --gap: 0.75rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); align-content: start; align-items: start;
+  /* height of exactly three rows of 4:5 boxes */
+  height: calc(3 * ((100cqw - 2 * var(--gap)) / 3 * 1.25) + 2 * var(--gap));
+  overflow-y: auto; scroll-snap-type: y proximity; scrollbar-width: thin; scrollbar-color: var(--accent) var(--line);
+  padding-right: 0.4rem;
+}
+.scroll-area { --row: calc((100cqw - 2 * var(--gap)) / 3 * 1.25); grid-auto-rows: var(--row); }
+.scroll-area .photo-box { height: 100%; aspect-ratio: auto; scroll-snap-align: start; }
+.scroll-area:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
