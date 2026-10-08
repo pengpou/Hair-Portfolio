@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Name | Hair Stylist Portfolio</title>
   <meta name="description" content="Men's cuts, women's cuts, and chemical services including permanent waves and color in Boston, MA.">
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
   <a class="skip" href="#prices">Skip to content</a>
@@ -131,17 +131,18 @@
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="Services" id="services-field">
 
+        <p class="req-note"><b class="req" aria-hidden="true">*</b> Required</p>
         <div class="field-row">
-          <label class="field"><span>First Name</span><input type="text" name="First Name" required autocomplete="given-name"></label>
-          <label class="field"><span>Last Name</span><input type="text" name="Last Name" required autocomplete="family-name"></label>
+          <label class="field"><span>First Name <b class="req" aria-hidden="true">*</b></span><input type="text" name="First Name" required autocomplete="given-name"></label>
+          <label class="field"><span>Last Name <b class="req" aria-hidden="true">*</b></span><input type="text" name="Last Name" required autocomplete="family-name"></label>
         </div>
         <div class="field-row">
-          <label class="field"><span>Email</span><input type="email" name="email" required autocomplete="email"></label>
+          <label class="field"><span>Email <b class="req" aria-hidden="true">*</b></span><input type="email" name="email" required autocomplete="email"></label>
           <label class="field"><span>Phone Number</span><input type="tel" name="Phone" autocomplete="tel"></label>
         </div>
 
         <fieldset class="field services-pick">
-          <legend>Service <em>(choose all that apply)</em></legend>
+          <legend>Service <b class="req" aria-hidden="true">*</b> <em>(choose at least one)</em></legend>
                     <div class="pill-groups">
             <div class="pill-group">
               <h3>Men's Cuts</h3>
@@ -196,6 +197,6 @@
     <p>&copy; <span id="year"></span> Your Name Hair Studio</p>
   </footer>
 
-  <script src="script.js?v=17"></script>
+  <script src="script.js?v=18"></script>
 </body>
 </html>

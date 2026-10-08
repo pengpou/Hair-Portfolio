@@ -262,12 +262,12 @@ ul { list-style: none; margin: 0; padding: 0; }
 .file-list { max-width: 460px; }
 .file-list li { display: flex; align-items: center; gap: 0.9rem; padding: 0.35rem 0; }
 .file-list li > span { overflow-wrap: anywhere; }
-.file-remove {
-  margin-left: auto; padding: 0.25rem 0.7rem; font: inherit; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--muted); background: none; border: 1px solid var(--line); cursor: pointer; transition: all 0.2s;
-}
-.file-remove:hover, .file-remove:focus-visible { color: #b3261e; border-color: #b3261e; outline: none; }
+.file-remove { margin-left: auto; padding: 0 0.4rem; font: inherit; font-size: 1.5rem; line-height: 1; color: var(--muted); background: none; border: 0; box-shadow: none; cursor: pointer; transition: color 0.2s; }
+.file-remove:hover, .file-remove:focus-visible { color: #b3261e; outline: none; }
 .upload-box.disabled span { opacity: 0.5; cursor: not-allowed; border-style: solid; }
 .upload-box.disabled input { cursor: not-allowed; }
 
 .services-pick > legend { padding-bottom: 0.9rem; }
+
+.req { color: #b3261e; font-weight: 400; }
+.req-note { margin: 0; font-size: 0.8rem; color: var(--muted); }

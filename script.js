@@ -152,7 +152,7 @@ if (requestForm) {
       const removeBtn = document.createElement('button');
       removeBtn.type = 'button';
       removeBtn.className = 'file-remove';
-      removeBtn.textContent = 'Remove';
+      removeBtn.textContent = '\u00d7';
       removeBtn.setAttribute('aria-label', 'Remove ' + f.name);
       removeBtn.addEventListener('click', () => { selected.splice(i, 1); showError(''); renderFiles(); });
       li.append(name, removeBtn);
