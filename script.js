@@ -135,6 +135,19 @@ if (requestForm) {
     reader.readAsDataURL(file);
   });
 
+  const requestIntro = document.querySelector('.request-sub');
+  const sentBox = document.getElementById('form-sent');
+
+  // "Submit another form" brings the empty form (and its intro text) back.
+  document.getElementById('another-request').addEventListener('click', () => {
+    sentBox.hidden = true;
+    requestForm.hidden = false;
+    requestIntro.hidden = false;
+    showError('');
+    resetButton();
+    document.getElementById('request').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    requestForm.elements['First Name'].focus({ preventScroll: true });
+  });
   function showError(msg) { errorBox.textContent = msg; errorBox.hidden = !msg; }
   function resetButton() { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
 
@@ -221,9 +234,9 @@ if (requestForm) {
       selected = [];
       renderFiles();
       requestForm.hidden = true;
-      const sent = document.getElementById('form-sent');
-      sent.hidden = false;
-      sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      requestIntro.hidden = true;
+      sentBox.hidden = false;
+      sentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
       showError(err && err.message && err.message !== 'not sent' && err.message !== 'Could not send the request.' && err.message !== 'forbidden' && !/fetch|JSON|network/i.test(err.message)
         ? err.message

@@ -505,3 +505,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 .photo-grid { margin-bottom: 3.2rem; }
 /* the first row sits at the top of the scroll area, so a hover lift would be clipped: brighten instead */
 .collection .photo-open:hover { transform: none; box-shadow: none; filter: brightness(1.06); }
+
+.form-sent p { margin: 0 0 1.3rem; font-size: 1.1rem; }
+.form-sent { text-align: center; padding: 2rem 1.5rem; }
+.request-sub[hidden] { display: none; }
+
