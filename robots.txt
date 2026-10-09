@@ -1,0 +1,4 @@
+# Asks search engines and well-behaved crawlers not to index the photos or the form script.
+User-agent: *
+Disallow: /images/
+Disallow: /apps-script/
