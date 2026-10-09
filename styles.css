@@ -510,3 +510,5 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 .form-sent { text-align: center; padding: 2rem 1.5rem; }
 .request-sub[hidden] { display: none; }
 
+
+.nw { white-space: nowrap; }
