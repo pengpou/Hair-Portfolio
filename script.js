@@ -270,3 +270,66 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     seen.observe(el);
   });
 }
+
+
+// Decorative pig windmills --------------------------------------------------------------
+// Any element with data-mills="type:corner:colors:seconds,..." gets spinning pig toys in its corners.
+// type: tower (windmill with a pig at the hub) or carousel (pigs riding round, staying upright)
+(function addPigMills() {
+  const INK = '#3b2a22';
+  const PIG =
+    '<path d="M13 21 L9 6 Q9 3.5 11.5 4.8 L27 13 Z" fill="#e79aa4" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
+    '<path d="M51 21 L55 6 Q55 3.5 52.5 4.8 L37 13 Z" fill="#e79aa4" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
+    '<circle cx="32" cy="34" r="22" fill="#f7bcc2" stroke="' + INK + '" stroke-width="2.6"/>' +
+    '<circle cx="17.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".65"/><circle cx="46.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".65"/>' +
+    '<ellipse cx="32" cy="41.5" rx="10" ry="7.5" fill="#f19aa8" stroke="' + INK + '" stroke-width="2.4"/>' +
+    '<ellipse cx="28.4" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/><ellipse cx="35.6" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/>' +
+    '<circle cx="23" cy="30" r="2.7" fill="' + INK + '"/><circle cx="41" cy="30" r="2.7" fill="' + INK + '"/>' +
+    '<circle cx="22.1" cy="29.1" r=".95" fill="#fff"/><circle cx="40.1" cy="29.1" r=".95" fill="#fff"/>';
+
+  const open = '<svg viewBox="0 0 120 190" aria-hidden="true" focusable="false">';
+  const TOWER =
+    open +
+    '<ellipse cx="60" cy="187" rx="30" ry="3.5" fill="rgba(59,42,34,.18)"/>' +
+    '<path d="M42 186 L52 76 L68 76 L78 186 Z" fill="#fffaf0" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M54 186 V170 Q60 160 66 170 V186 Z" fill="' + INK + '"/>' +
+    '<rect x="55" y="104" width="10" height="12" rx="2" fill="#f5c8ae" stroke="' + INK + '" stroke-width="2"/>' +
+    '<g class="blades">' +
+    [0, 90, 180, 270].map((a, i) =>
+      '<path class="b' + (i + 1) + '" d="M60 60 L60 8 L96 34 Z" transform="rotate(' + a + ' 60 60)" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>'
+    ).join('') +
+    '</g>' +
+    '<circle cx="60" cy="60" r="9" fill="' + INK + '"/>' +
+    '<g transform="translate(60 60) scale(.9) translate(-32 -34)">' + PIG + '</g>' +
+    '</svg>';
+
+  const TIPS = [[60, 16], [98.6, 82], [21.4, 82]];
+  const CAROUSEL =
+    open +
+    '<ellipse cx="60" cy="187" rx="28" ry="3.5" fill="rgba(59,42,34,.18)"/>' +
+    '<rect x="56" y="64" width="8" height="122" rx="3" fill="#fffaf0" stroke="' + INK + '" stroke-width="2.6"/>' +
+    '<path class="b2" d="M38 188 Q60 174 82 188 Z" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
+    '<g class="spin">' +
+    TIPS.map(([x, y]) => '<line x1="60" y1="60" x2="' + x + '" y2="' + y + '" stroke="' + INK + '" stroke-width="3" stroke-linecap="round"/>').join('') +
+    TIPS.map(([x, y], i) =>
+      '<g transform="translate(' + x + ' ' + y + ')"><g class="unspin">' +
+      '<circle r="20" class="b' + (i + 1) + '" stroke="' + INK + '" stroke-width="2.5"/>' +
+      '<g transform="scale(.62) translate(-32 -34)">' + PIG + '</g>' +
+      '</g></g>'
+    ).join('') +
+    '</g>' +
+    '<circle cx="60" cy="60" r="7" fill="' + INK + '"/>' +
+    '</svg>';
+
+  document.querySelectorAll('[data-mills]').forEach((host) => {
+    host.dataset.mills.split(',').forEach((spec) => {
+      const [type, corner, variant, seconds] = spec.split(':');
+      const el = document.createElement('span');
+      el.className = 'mill mill-' + corner + ' v' + (variant || 1);
+      el.setAttribute('aria-hidden', 'true');
+      el.style.setProperty('--dur', (seconds || 10) + 's');
+      el.innerHTML = type === 'carousel' ? CAROUSEL : TOWER;   // trusted constant markup
+      host.appendChild(el);
+    });
+  });
+})();
