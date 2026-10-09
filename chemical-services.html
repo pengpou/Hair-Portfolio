@@ -5,8 +5,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self'; base-uri 'self'; object-src 'none'">
   <meta name="robots" content="noimageindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Men's Cuts | Your Name Hair Studio</title>
-  <meta name="description" content="A collection of men's cuts.">
+  <title>Chemical Services | Your Name Hair Studio</title>
+  <meta name="description" content="A collection of chemical services: permanent waves and color.">
   <script src="frame-guard.js"></script>
   <link rel="stylesheet" href="styles.css?v=43">
 </head>
@@ -29,13 +29,15 @@
   <main>
     <section class="collection" id="collection">
       <p class="back"><a href="index.html#services">&larr; Back to services</a></p>
-      <h1 class="section-title">Men's Cuts</h1>
+      <h1 class="section-title">Chemical Services</h1>
 
       <!-- 3 photos per row, 9 rows. 3 rows (3x3) are visible at a time; scroll for the rest. -->
-      <!-- Replace each <span>Photo</span> with: <img src="images/your-photo.jpg" alt="Description"> -->
+      <!-- Replace each <span>Photo</span> with: <img src="images/chemical-services/your-photo.jpg" alt="Description"> -->
+      <!-- To give a photo the before/after popup, make its figure: <figure class="photo-box photo-open" data-set="set-1" role="button" tabindex="0" aria-label="Open before and after photos"> ... <figcaption>Before &amp; After</figcaption></figure>
+           and fill in the set-1 block below with its photos. -->
       <div class="scroller">
-        <div class="scroll-area" tabindex="0" aria-label="Men's cuts photo collection">
-        <figure class="photo-box photo-open" data-set="set-1" role="button" tabindex="0" aria-label="Open before and after photos"><img src="images/mens-cuts/1-after-front.jpg" alt="Men's cut, side profile"><figcaption>Before &amp; After</figcaption></figure>
+        <div class="scroll-area" tabindex="0" aria-label="Chemical services photo collection">
+        <figure class="photo-box"><span>Photo</span></figure>
         <figure class="photo-box"><span>Photo</span></figure>
         <figure class="photo-box"><span>Photo</span></figure>
         <figure class="photo-box"><span>Photo</span></figure>
@@ -69,12 +71,11 @@
     </section>
   </main>
 
-  <!-- Before/after sets. Each <img> is one slide, shown in this order; data-label is the heading above it. -->
+  <!-- Before/after sets. Each <img> is one slide, shown in this order; data-label is the heading above it.
+       Example (add your photos, then point a tile at this set as described above):
+       <img data-src="images/chemical-services/1-after-front.jpg" data-label="After" alt="After: front view">
+       <img data-src="images/chemical-services/2-before-front.jpg" data-label="Before" alt="Before: front view"> -->
   <div class="lightbox-set" id="set-1" hidden>
-    <img data-src="images/mens-cuts/1-after-front.jpg" data-label="After" alt="After: front view">
-    <img data-src="images/mens-cuts/2-after-side.jpg" data-label="After" alt="After: side view">
-    <img data-src="images/mens-cuts/3-before-front.jpg" data-label="Before" alt="Before: front view">
-    <img data-src="images/mens-cuts/4-before-side.jpg" data-label="Before" alt="Before: side view">
   </div>
 
   <dialog class="lightbox" id="lightbox" aria-label="Before and after photos">
