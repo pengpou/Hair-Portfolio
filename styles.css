@@ -520,7 +520,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
   position: absolute; z-index: 0; width: var(--w); pointer-events: none; line-height: 0; }
 .mill.v2 { --c1: #d9795b; --c2: #f4e6b8; --c3: #efbab2; --c4: #c9d8b8; }
 .mill.v3 { --c1: #c9d8b8; --c2: #efbab2; --c3: #f4e6b8; --c4: #d9795b; }
-.mill svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mill svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(1px 4px 4px rgba(59, 42, 34, 0.42)); }
 .mill .b1 { fill: var(--c1); } .mill .b2 { fill: var(--c2); } .mill .b3 { fill: var(--c3); } .mill .b4 { fill: var(--c4); }
 .mill .blades, .mill .spin { transform-box: view-box; transform-origin: 60px 60px; animation: spin var(--dur, 10s) linear infinite; }
 .mill .unspin { transform-box: fill-box; transform-origin: center; animation: spin var(--dur, 10s) linear infinite reverse; }
@@ -534,4 +534,4 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 @media (max-width: 800px) { .mill { --w: 54px; } .hero .mill-tr { top: 4.6rem; } .hero .mill-bl { bottom: 4%; } }
 /* on the dark contact section the brown arms would vanish, so draw them cream */
 .contact .mill line { stroke: #fffaf0; }
-.contact .mill svg > circle { fill: #fffaf0; }
+.contact .mill .hub { fill: #fffaf0; }

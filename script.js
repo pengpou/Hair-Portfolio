@@ -272,63 +272,107 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
 }
 
 
-// Decorative pig windmills --------------------------------------------------------------
+// Decorative pig toys poking out of tears in the page --------------------------------------
 // Any element with data-mills="type:corner:colors:seconds,..." gets spinning pig toys in its corners.
-// type: tower (windmill with a pig at the hub) or carousel (pigs riding round, staying upright)
+// type: tower (windmill with a pig at the hub) or carousel (pigs riding round, staying upright).
+// Each toy stands in a ragged tear: torn white paper edge, dark hole behind it, the near edge hiding the base.
 (function addPigMills() {
   const INK = '#3b2a22';
+  const EDGE = 'rgba(59,42,34,.62)';
+
+  // Shared gradients and a blur, defined once and referenced by every toy
+  document.body.insertAdjacentHTML('afterbegin',
+    '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>' +
+    '<radialGradient id="pigFace" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#fcd6da"/><stop offset=".6" stop-color="#f6b4bb"/><stop offset="1" stop-color="#e58f9c"/></radialGradient>' +
+    '<radialGradient id="pigSnout" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#f6aab5"/><stop offset="1" stop-color="#e17e8f"/></radialGradient>' +
+    '<linearGradient id="pigEar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ee9ea8"/><stop offset="1" stop-color="#d77f8e"/></linearGradient>' +
+    '<linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f3e8d2"/><stop offset="1" stop-color="#d6c2a0"/></linearGradient>' +
+    '<linearGradient id="bladeShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset="1" stop-color="#3b2a22" stop-opacity=".3"/></linearGradient>' +
+    '<radialGradient id="bubbleShade" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#3b2a22" stop-opacity=".24"/></radialGradient>' +
+    '<linearGradient id="holeLight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c120d"/><stop offset=".6" stop-color="#3d2a21"/><stop offset="1" stop-color="#5a4236"/></linearGradient>' +
+    '<linearGradient id="holeDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090604"/><stop offset="1" stop-color="#21150f"/></linearGradient>' +
+    '<filter id="softBlur" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="2.6"/></filter>' +
+    '</defs></svg>');
+
   const PIG =
-    '<path d="M13 21 L9 6 Q9 3.5 11.5 4.8 L27 13 Z" fill="#e79aa4" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
-    '<path d="M51 21 L55 6 Q55 3.5 52.5 4.8 L37 13 Z" fill="#e79aa4" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
-    '<circle cx="32" cy="34" r="22" fill="#f7bcc2" stroke="' + INK + '" stroke-width="2.6"/>' +
-    '<circle cx="17.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".65"/><circle cx="46.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".65"/>' +
-    '<ellipse cx="32" cy="41.5" rx="10" ry="7.5" fill="#f19aa8" stroke="' + INK + '" stroke-width="2.4"/>' +
+    '<path d="M13 21 L9 6 Q9 3.5 11.5 4.8 L27 13 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
+    '<path d="M51 21 L55 6 Q55 3.5 52.5 4.8 L37 13 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
+    '<circle cx="32" cy="34" r="22" fill="url(#pigFace)" stroke="' + EDGE + '" stroke-width="1.8"/>' +
+    '<ellipse cx="25.5" cy="20.5" rx="7.5" ry="3.4" transform="rotate(-24 25.5 20.5)" fill="#fff" opacity=".38"/>' +
+    '<circle cx="17.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".6"/><circle cx="46.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".6"/>' +
+    '<ellipse cx="32" cy="41.5" rx="10" ry="7.5" fill="url(#pigSnout)" stroke="' + EDGE + '" stroke-width="1.6"/>' +
     '<ellipse cx="28.4" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/><ellipse cx="35.6" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/>' +
     '<circle cx="23" cy="30" r="2.7" fill="' + INK + '"/><circle cx="41" cy="30" r="2.7" fill="' + INK + '"/>' +
     '<circle cx="22.1" cy="29.1" r=".95" fill="#fff"/><circle cx="40.1" cy="29.1" r=".95" fill="#fff"/>';
 
-  const open = '<svg viewBox="0 0 120 190" aria-hidden="true" focusable="false">';
-  const TOWER =
-    open +
-    '<ellipse cx="60" cy="187" rx="30" ry="3.5" fill="rgba(59,42,34,.18)"/>' +
-    '<path d="M42 186 L52 76 L68 76 L78 186 Z" fill="#fffaf0" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
-    '<path d="M54 186 V170 Q60 160 66 170 V186 Z" fill="' + INK + '"/>' +
-    '<rect x="55" y="104" width="10" height="12" rx="2" fill="#f5c8ae" stroke="' + INK + '" stroke-width="2"/>' +
+  // A seeded random generator, so every tear has its own ragged shape but looks the same on every visit
+  const rng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
+  function ragged(seed, cx, cy, rx, ry, jitter, n) {
+    const r = rng(seed), pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + (r() - 0.5) * 0.2;
+      const k = 1 + (r() - 0.5) * jitter;
+      pts.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k, Math.sin(a)]);   // third value: below (+) or above (-) the centre
+    }
+    return pts;
+  }
+  const line = (pts) => 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
+  const closed = (pts) => line(pts) + ' Z';
+
+  const towerBody = () =>
+    '<path d="M39 198 L51 76 L69 76 L81 198 Z" fill="url(#towerGrad)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
+    '<rect x="55" y="104" width="10" height="12" rx="2" fill="#f5c8ae" stroke="' + EDGE + '" stroke-width="1.4"/>' +
     '<g class="blades">' +
     [0, 90, 180, 270].map((a, i) =>
-      '<path class="b' + (i + 1) + '" d="M60 60 L60 8 L96 34 Z" transform="rotate(' + a + ' 60 60)" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>'
+      '<g transform="rotate(' + a + ' 60 60)"><path class="b' + (i + 1) + '" d="M60 60 L60 8 L96 34 Z" stroke="' + EDGE + '" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<path d="M60 60 L60 8 L96 34 Z" fill="url(#bladeShade)"/></g>'
     ).join('') +
     '</g>' +
-    '<circle cx="60" cy="60" r="9" fill="' + INK + '"/>' +
-    '<g transform="translate(60 60) scale(.9) translate(-32 -34)">' + PIG + '</g>' +
-    '</svg>';
+    '<circle class="hub" cx="60" cy="60" r="9" fill="' + INK + '"/>' +
+    '<g transform="translate(60 60) scale(.9) translate(-32 -34)">' + PIG + '</g>';
 
   const TIPS = [[60, 16], [98.6, 82], [21.4, 82]];
-  const CAROUSEL =
-    open +
-    '<ellipse cx="60" cy="187" rx="28" ry="3.5" fill="rgba(59,42,34,.18)"/>' +
-    '<rect x="56" y="64" width="8" height="122" rx="3" fill="#fffaf0" stroke="' + INK + '" stroke-width="2.6"/>' +
-    '<path class="b2" d="M38 188 Q60 174 82 188 Z" stroke="' + INK + '" stroke-width="2.6" stroke-linejoin="round"/>' +
+  const carouselBody = () =>
+    '<rect x="56" y="64" width="8" height="134" rx="3" fill="url(#towerGrad)" stroke="' + EDGE + '" stroke-width="1.6"/>' +
     '<g class="spin">' +
-    TIPS.map(([x, y]) => '<line x1="60" y1="60" x2="' + x + '" y2="' + y + '" stroke="' + INK + '" stroke-width="3" stroke-linecap="round"/>').join('') +
+    TIPS.map(([x, y]) => '<line x1="60" y1="60" x2="' + x + '" y2="' + y + '" stroke="' + INK + '" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>').join('') +
     TIPS.map(([x, y], i) =>
       '<g transform="translate(' + x + ' ' + y + ')"><g class="unspin">' +
-      '<circle r="20" class="b' + (i + 1) + '" stroke="' + INK + '" stroke-width="2.5"/>' +
+      '<circle r="20" class="b' + (i + 1) + '" stroke="' + EDGE + '" stroke-width="1.8"/><circle r="20" fill="url(#bubbleShade)"/>' +
       '<g transform="scale(.62) translate(-32 -34)">' + PIG + '</g>' +
       '</g></g>'
     ).join('') +
     '</g>' +
-    '<circle cx="60" cy="60" r="7" fill="' + INK + '"/>' +
-    '</svg>';
+    '<circle class="hub" cx="60" cy="60" r="7" fill="' + INK + '"/>';
+
+  let count = 0;
+  function build(kind, dark) {
+    const id = ++count, seed = id * 7919 + 13;
+    const hole = ragged(seed, 60, 177, 57, 19, 0.34, 30);
+    const rim = ragged(seed + 11, 60, 176, 62, 23, 0.46, 34);
+    const mid = ragged(seed + 5, 60, 176.5, 59.5, 21, 0.4, 32);
+    const near = hole.filter((p) => p[2] > 0.05);
+    return '<svg viewBox="0 0 120 198" aria-hidden="true" focusable="false">' +
+      // everything below the tear's far edge is clipped to the hole, so the near edge hides the toy's base
+      '<defs><clipPath id="tear' + id + '"><path d="' + closed(hole) + '"/><rect x="-20" y="-20" width="160" height="186"/></clipPath></defs>' +
+      '<path d="' + closed(rim) + '" fill="#fffaf0" stroke="rgba(59,42,34,.3)" stroke-width=".8" stroke-linejoin="round"/>' +
+      '<path d="' + closed(mid) + '" fill="#e9ddc4" stroke="rgba(59,42,34,.18)" stroke-width=".6" stroke-linejoin="round"/>' +
+      '<path d="' + closed(hole) + '" fill="url(#' + (dark ? 'holeDark' : 'holeLight') + ')"/>' +
+      '<ellipse cx="60" cy="181" rx="32" ry="8" fill="#000" opacity=".55" filter="url(#softBlur)"/>' +
+      '<g clip-path="url(#tear' + id + ')">' + (kind === 'carousel' ? carouselBody() : towerBody()) + '</g>' +
+      '<path d="' + line(near) + '" fill="none" stroke="#fffaf0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity=".92"/>' +
+      '</svg>';
+  }
 
   document.querySelectorAll('[data-mills]').forEach((host) => {
+    const dark = host.classList.contains('contact');
     host.dataset.mills.split(',').forEach((spec) => {
       const [type, corner, variant, seconds] = spec.split(':');
       const el = document.createElement('span');
       el.className = 'mill mill-' + corner + ' v' + (variant || 1);
       el.setAttribute('aria-hidden', 'true');
       el.style.setProperty('--dur', (seconds || 10) + 's');
-      el.innerHTML = type === 'carousel' ? CAROUSEL : TOWER;   // trusted constant markup
+      el.innerHTML = build(type, dark);   // trusted constant markup
       host.appendChild(el);
     });
   });
