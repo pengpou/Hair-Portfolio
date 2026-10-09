@@ -272,38 +272,63 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
 }
 
 
-// Decorative pig toys poking out of tears in the page --------------------------------------
-// Any element with data-mills="type:corner:colors:seconds,..." gets spinning pig toys in its corners.
-// type: tower (windmill with a pig at the hub) or carousel (pigs riding round, staying upright).
-// Each toy stands in a ragged tear: torn white paper edge, dark hole behind it, the near edge hiding the base.
+// Decorative pigs climbing out of tears in the "wall" (the page) ---------------------------
+// Any element with data-mills="type:corner:colors:seconds,..." gets pig toys in its corners.
+// type: tower = pig wearing a spinning pinwheel beanie; carousel = pig holding a spinning pinwheel on a stick.
+// Each pig sits in a ragged hole: torn white paper edge, dark hollow, the pig's body fading back into it.
 (function addPigMills() {
   const INK = '#3b2a22';
-  const EDGE = 'rgba(59,42,34,.62)';
+  const EDGE = 'rgba(59,42,34,.6)';
 
-  // Shared gradients and a blur, defined once and referenced by every toy
+  // Shared gradients and a blur, defined once and referenced by every pig
   document.body.insertAdjacentHTML('afterbegin',
     '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>' +
-    '<radialGradient id="pigFace" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#fcd6da"/><stop offset=".6" stop-color="#f6b4bb"/><stop offset="1" stop-color="#e58f9c"/></radialGradient>' +
-    '<radialGradient id="pigSnout" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#f6aab5"/><stop offset="1" stop-color="#e17e8f"/></radialGradient>' +
-    '<linearGradient id="pigEar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ee9ea8"/><stop offset="1" stop-color="#d77f8e"/></linearGradient>' +
-    '<linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f3e8d2"/><stop offset="1" stop-color="#d6c2a0"/></linearGradient>' +
+    '<radialGradient id="pigHead" cx=".38" cy=".28" r=".85"><stop offset="0" stop-color="#ffdadc"/><stop offset=".55" stop-color="#f7b5bd"/><stop offset="1" stop-color="#e48e9c"/></radialGradient>' +
+    '<radialGradient id="pigSnout" cx=".4" cy=".3" r=".85"><stop offset="0" stop-color="#f6a9b5"/><stop offset="1" stop-color="#d9788a"/></radialGradient>' +
+    '<radialGradient id="pigSnoutIn" cx=".4" cy=".28" r=".85"><stop offset="0" stop-color="#fabdc5"/><stop offset="1" stop-color="#e88fa0"/></radialGradient>' +
+    '<linearGradient id="pigEar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0a3ad"/><stop offset="1" stop-color="#d4798a"/></linearGradient>' +
+    '<linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d98f9c"/><stop offset=".6" stop-color="#7a4a52"/><stop offset="1" stop-color="#2a1a1b"/></linearGradient>' +
+    '<linearGradient id="stickGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#d6c2a0"/></linearGradient>' +
     '<linearGradient id="bladeShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset="1" stop-color="#3b2a22" stop-opacity=".3"/></linearGradient>' +
-    '<radialGradient id="bubbleShade" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#3b2a22" stop-opacity=".24"/></radialGradient>' +
-    '<linearGradient id="holeLight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c120d"/><stop offset=".6" stop-color="#3d2a21"/><stop offset="1" stop-color="#5a4236"/></linearGradient>' +
-    '<linearGradient id="holeDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090604"/><stop offset="1" stop-color="#21150f"/></linearGradient>' +
+    '<radialGradient id="holeLight" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#0e0806"/><stop offset=".7" stop-color="#2c1d16"/><stop offset="1" stop-color="#4d372c"/></radialGradient>' +
+    '<radialGradient id="holeDark" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#050302"/><stop offset="1" stop-color="#1c120d"/></radialGradient>' +
     '<filter id="softBlur" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="2.6"/></filter>' +
     '</defs></svg>');
 
+  // A pig head and ears, front view, drawn in a 100 x 96 box. Ears are mirrored by x -> 100 - x.
   const PIG =
-    '<path d="M13 21 L9 6 Q9 3.5 11.5 4.8 L27 13 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
-    '<path d="M51 21 L55 6 Q55 3.5 52.5 4.8 L37 13 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
-    '<circle cx="32" cy="34" r="22" fill="url(#pigFace)" stroke="' + EDGE + '" stroke-width="1.8"/>' +
-    '<ellipse cx="25.5" cy="20.5" rx="7.5" ry="3.4" transform="rotate(-24 25.5 20.5)" fill="#fff" opacity=".38"/>' +
-    '<circle cx="17.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".6"/><circle cx="46.5" cy="38" r="3.4" fill="#ef8f9c" opacity=".6"/>' +
-    '<ellipse cx="32" cy="41.5" rx="10" ry="7.5" fill="url(#pigSnout)" stroke="' + EDGE + '" stroke-width="1.6"/>' +
-    '<ellipse cx="28.4" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/><ellipse cx="35.6" cy="41.5" rx="1.8" ry="2.7" fill="' + INK + '"/>' +
-    '<circle cx="23" cy="30" r="2.7" fill="' + INK + '"/><circle cx="41" cy="30" r="2.7" fill="' + INK + '"/>' +
-    '<circle cx="22.1" cy="29.1" r=".95" fill="#fff"/><circle cx="40.1" cy="29.1" r=".95" fill="#fff"/>';
+    '<path d="M24 22 C10 14 -2 26 2 44 C5 58 20 58 30 44 C35 36 33 26 24 22 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.6" stroke-linejoin="round"/>' +
+    '<path d="M23 28 C15 25 9 33 11 43 C13 50 20 50 26 42 C29 36 28 31 23 28 Z" fill="#dd7f90" opacity=".75"/>' +
+    '<path d="M76 22 C90 14 102 26 98 44 C95 58 80 58 70 44 C65 36 67 26 76 22 Z" fill="url(#pigEar)" stroke="' + EDGE + '" stroke-width="1.6" stroke-linejoin="round"/>' +
+    '<path d="M77 28 C85 25 91 33 89 43 C87 50 80 50 74 42 C71 36 72 31 77 28 Z" fill="#dd7f90" opacity=".75"/>' +
+    '<path d="M50 6 C75 6 91 24 91 47 C91 70 74 88 50 88 C26 88 9 70 9 47 C9 24 25 6 50 6 Z" fill="url(#pigHead)" stroke="' + EDGE + '" stroke-width="1.7"/>' +
+    '<ellipse cx="38" cy="19" rx="13" ry="5.5" transform="rotate(-20 38 19)" fill="#fff" opacity=".3"/>' +
+    '<path d="M30 25 Q50 18 70 25" fill="none" stroke="#d9808f" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>' +
+    '<path d="M35 31 Q50 26 65 31" fill="none" stroke="#d9808f" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>' +
+    '<circle cx="23" cy="59" r="7.5" fill="#ef8f9c" opacity=".35"/><circle cx="77" cy="59" r="7.5" fill="#ef8f9c" opacity=".35"/>' +
+    '<ellipse cx="34" cy="44" rx="3.4" ry="3.8" fill="' + INK + '"/><ellipse cx="66" cy="44" rx="3.4" ry="3.8" fill="' + INK + '"/>' +
+    '<circle cx="33" cy="42.6" r="1.2" fill="#fff"/><circle cx="65" cy="42.6" r="1.2" fill="#fff"/>' +
+    '<path d="M28.5 40 Q34 35.5 39.5 40" fill="none" stroke="#c9707f" stroke-width="1.5" stroke-linecap="round"/><path d="M60.5 40 Q66 35.5 71.5 40" fill="none" stroke="#c9707f" stroke-width="1.5" stroke-linecap="round"/>' +
+    '<ellipse cx="50" cy="78" rx="17" ry="3.6" fill="#7a3b48" opacity=".32" filter="url(#softBlur)"/>' +
+    '<ellipse cx="50" cy="62" rx="21" ry="15" fill="url(#pigSnout)" stroke="' + EDGE + '" stroke-width="1.5"/>' +
+    '<ellipse cx="50" cy="60.5" rx="17" ry="11.5" fill="url(#pigSnoutIn)"/>' +
+    '<ellipse cx="43.5" cy="61" rx="2.8" ry="4.4" fill="#5c3036"/><ellipse cx="56.5" cy="61" rx="2.8" ry="4.4" fill="#5c3036"/>' +
+    '<ellipse cx="42.6" cy="59.2" rx=".9" ry="1.2" fill="#fff" opacity=".5"/><ellipse cx="55.6" cy="59.2" rx=".9" ry="1.2" fill="#fff" opacity=".5"/>' +
+    '<path d="M38 79 Q50 84 62 79" fill="none" stroke="#c9707f" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>' +
+    '<path d="M50 7 Q46 0 53 1.5" fill="none" stroke="#d8828f" stroke-width="1.3" stroke-linecap="round"/>';
+
+  // A pinwheel drawn around (0,0) so it can spin about its own centre
+  const PINWHEEL =
+    '<g class="pin">' +
+    [0, 90, 180, 270].map((a, i) =>
+      '<g transform="rotate(' + a + ')"><path class="b' + (i + 1) + '" d="M0 0 L0 -27 L25 -9 Z" stroke="' + EDGE + '" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<path d="M0 0 L0 -27 L25 -9 Z" fill="url(#bladeShade)"/></g>'
+    ).join('') +
+    '</g><circle r="3.4" fill="' + INK + '"/>';
+
+  const TROTTER =
+    '<rect x="-8" y="-8" width="16" height="22" rx="7" fill="url(#pigHead)" stroke="' + EDGE + '" stroke-width="1.5"/>' +
+    '<ellipse cx="-3.2" cy="11" rx="3" ry="2.6" fill="#5c3a3f"/><ellipse cx="3.2" cy="11" rx="3" ry="2.6" fill="#5c3a3f"/>';
 
   // A seeded random generator, so every tear has its own ragged shape but looks the same on every visit
   const rng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
@@ -312,55 +337,46 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     for (let i = 0; i < n; i++) {
       const a = (i / n) * Math.PI * 2 + (r() - 0.5) * 0.2;
       const k = 1 + (r() - 0.5) * jitter;
-      pts.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k, Math.sin(a)]);   // third value: below (+) or above (-) the centre
+      pts.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k]);
     }
     return pts;
   }
-  const line = (pts) => 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
-  const closed = (pts) => line(pts) + ' Z';
-
-  const towerBody = () =>
-    '<path d="M39 198 L51 76 L69 76 L81 198 Z" fill="url(#towerGrad)" stroke="' + EDGE + '" stroke-width="1.8" stroke-linejoin="round"/>' +
-    '<rect x="55" y="104" width="10" height="12" rx="2" fill="#f5c8ae" stroke="' + EDGE + '" stroke-width="1.4"/>' +
-    '<g class="blades">' +
-    [0, 90, 180, 270].map((a, i) =>
-      '<g transform="rotate(' + a + ' 60 60)"><path class="b' + (i + 1) + '" d="M60 60 L60 8 L96 34 Z" stroke="' + EDGE + '" stroke-width="1.6" stroke-linejoin="round"/>' +
-      '<path d="M60 60 L60 8 L96 34 Z" fill="url(#bladeShade)"/></g>'
-    ).join('') +
-    '</g>' +
-    '<circle class="hub" cx="60" cy="60" r="9" fill="' + INK + '"/>' +
-    '<g transform="translate(60 60) scale(.9) translate(-32 -34)">' + PIG + '</g>';
-
-  const TIPS = [[60, 16], [98.6, 82], [21.4, 82]];
-  const carouselBody = () =>
-    '<rect x="56" y="64" width="8" height="134" rx="3" fill="url(#towerGrad)" stroke="' + EDGE + '" stroke-width="1.6"/>' +
-    '<g class="spin">' +
-    TIPS.map(([x, y]) => '<line x1="60" y1="60" x2="' + x + '" y2="' + y + '" stroke="' + INK + '" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>').join('') +
-    TIPS.map(([x, y], i) =>
-      '<g transform="translate(' + x + ' ' + y + ')"><g class="unspin">' +
-      '<circle r="20" class="b' + (i + 1) + '" stroke="' + EDGE + '" stroke-width="1.8"/><circle r="20" fill="url(#bubbleShade)"/>' +
-      '<g transform="scale(.62) translate(-32 -34)">' + PIG + '</g>' +
-      '</g></g>'
-    ).join('') +
-    '</g>' +
-    '<circle class="hub" cx="60" cy="60" r="7" fill="' + INK + '"/>';
+  const closed = (pts) => 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L') + ' Z';
 
   let count = 0;
   function build(kind, dark) {
     const id = ++count, seed = id * 7919 + 13;
-    const hole = ragged(seed, 60, 177, 57, 19, 0.34, 30);
-    const rim = ragged(seed + 11, 60, 176, 62, 23, 0.46, 34);
-    const mid = ragged(seed + 5, 60, 176.5, 59.5, 21, 0.4, 32);
-    const near = hole.filter((p) => p[2] > 0.05);
-    return '<svg viewBox="0 0 120 198" aria-hidden="true" focusable="false">' +
-      // everything below the tear's far edge is clipped to the hole, so the near edge hides the toy's base
-      '<defs><clipPath id="tear' + id + '"><path d="' + closed(hole) + '"/><rect x="-20" y="-20" width="160" height="186"/></clipPath></defs>' +
+    const hole = ragged(seed, 80, 86, 56, 50, 0.34, 32);
+    const rim = ragged(seed + 11, 80, 86, 63.5, 57, 0.46, 36);
+    const mid = ragged(seed + 5, 80, 86, 60, 53.5, 0.4, 34);
+    const tilt = (id % 2 ? -1 : 1) * (4 + (id % 3) * 2);   // each pig leans a little differently
+
+    // pig wearing a beanie topped with a spinning pinwheel (drawn inside the head's coordinates so it leans with the head)
+    const beanie =
+      '<path d="M26 14 Q50 -14 74 14 Z" fill="var(--c1)" stroke="' + EDGE + '" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<rect x="25" y="11" width="50" height="7" rx="3.5" fill="var(--c2)" stroke="' + EDGE + '" stroke-width="1.3"/>' +
+      '<rect x="47.9" y="-30" width="4.2" height="33" fill="url(#stickGrad)" stroke="' + EDGE + '" stroke-width="1.2"/>' +
+      '<g transform="translate(50 -32) scale(1.15)">' + PINWHEEL + '</g>';
+    const head = '<g transform="translate(80 84) rotate(' + tilt + ') scale(.88) translate(-50 -48)">' + PIG + (kind === 'carousel' ? '' : beanie) + '</g>';
+
+    // pig holding a pinwheel on a stick: the stick is drawn behind the head, the hoof in front
+    const stick = kind === 'carousel'
+      ? '<line x1="108" y1="132" x2="130" y2="16" stroke="' + EDGE + '" stroke-width="5.6" stroke-linecap="round"/><line x1="108" y1="132" x2="130" y2="16" stroke="url(#stickGrad)" stroke-width="3.6" stroke-linecap="round"/>'
+      : '';
+    const pinwheel = kind === 'carousel' ? '<g transform="translate(128 14) scale(1.15)">' + PINWHEEL + '</g>' : '';
+    const trotters =
+      '<g transform="translate(60 130)">' + TROTTER + '</g>' +
+      '<g transform="translate(' + (kind === 'carousel' ? 108 : 100) + ' 130)">' + TROTTER + '</g>';
+
+    return '<svg viewBox="0 -34 160 194" aria-hidden="true" focusable="false">' +
+      '<defs><clipPath id="tear' + id + '"><path d="' + closed(hole) + '"/></clipPath></defs>' +
       '<path d="' + closed(rim) + '" fill="#fffaf0" stroke="rgba(59,42,34,.3)" stroke-width=".8" stroke-linejoin="round"/>' +
       '<path d="' + closed(mid) + '" fill="#e9ddc4" stroke="rgba(59,42,34,.18)" stroke-width=".6" stroke-linejoin="round"/>' +
       '<path d="' + closed(hole) + '" fill="url(#' + (dark ? 'holeDark' : 'holeLight') + ')"/>' +
-      '<ellipse cx="60" cy="181" rx="32" ry="8" fill="#000" opacity=".55" filter="url(#softBlur)"/>' +
-      '<g clip-path="url(#tear' + id + ')">' + (kind === 'carousel' ? carouselBody() : towerBody()) + '</g>' +
-      '<path d="' + line(near) + '" fill="none" stroke="#fffaf0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity=".92"/>' +
+      // the pig's body is inside the hole, so it is clipped to it and fades into the dark
+      '<g clip-path="url(#tear' + id + ')"><ellipse cx="80" cy="128" rx="42" ry="32" fill="url(#bodyGrad)"/>' +
+      '<ellipse cx="80" cy="118" rx="36" ry="13" fill="#000" opacity=".45" filter="url(#softBlur)"/></g>' +
+      stick + head + trotters + pinwheel +
       '</svg>';
   }
 

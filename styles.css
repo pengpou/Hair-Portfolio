@@ -516,22 +516,20 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 
 /* Pig windmills and carousels (built by script.js from data-mills) */
 @keyframes spin { to { transform: rotate(360deg); } }
-.mill { --c1: #f4e6b8; --c2: #f5c8ae; --c3: #c9d8b8; --c4: #efbab2; --w: clamp(52px, 8.4vw, 124px);
+.mill { --c1: #f4e6b8; --c2: #f5c8ae; --c3: #c9d8b8; --c4: #efbab2; --w: clamp(72px, 11vw, 150px);
   position: absolute; z-index: 0; width: var(--w); pointer-events: none; line-height: 0; }
 .mill.v2 { --c1: #d9795b; --c2: #f4e6b8; --c3: #efbab2; --c4: #c9d8b8; }
 .mill.v3 { --c1: #c9d8b8; --c2: #efbab2; --c3: #f4e6b8; --c4: #d9795b; }
-.mill svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(1px 4px 4px rgba(59, 42, 34, 0.42)); }
+.mill svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(2px 5px 5px rgba(59, 42, 34, 0.42)); }
 .mill .b1 { fill: var(--c1); } .mill .b2 { fill: var(--c2); } .mill .b3 { fill: var(--c3); } .mill .b4 { fill: var(--c4); }
-.mill .blades, .mill .spin { transform-box: view-box; transform-origin: 60px 60px; animation: spin var(--dur, 10s) linear infinite; }
-.mill .unspin { transform-box: fill-box; transform-origin: center; animation: spin var(--dur, 10s) linear infinite reverse; }
+.mill .pin { transform-box: fill-box; transform-origin: center; animation: spin var(--dur, 10s) linear infinite; }
+.mill.v2 .pin { animation-direction: reverse; }
 .mill-tl { top: 1.4rem; left: 4%; }
 .mill-tr { top: 1.4rem; right: 4%; }
 .mill-bl { bottom: 3%; left: 4%; }
 .mill-br { bottom: 3%; right: 4%; }
 .hero .mill-tr { top: 22%; right: 5%; }
 .hero .mill-bl { bottom: 7%; left: 5%; }
-@media (prefers-reduced-motion: reduce) { .mill .blades, .mill .spin, .mill .unspin { animation: none; } }
-@media (max-width: 800px) { .mill { --w: 54px; } .hero .mill-tr { top: 4.6rem; } .hero .mill-bl { bottom: 4%; } }
+@media (prefers-reduced-motion: reduce) { .mill .pin { animation: none; } }
+@media (max-width: 800px) { .mill { --w: 80px; } .hero .mill-tr { top: 4.6rem; } .hero .mill-bl { bottom: 4%; } }
 /* on the dark contact section the brown arms would vanish, so draw them cream */
-.contact .mill line { stroke: #fffaf0; }
-.contact .mill .hub { fill: #fffaf0; }
