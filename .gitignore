@@ -1,2 +1,5 @@
 # original photos and PDFs stay on this computer only
 Hair/
+
+# local Claude Code settings
+.claude/settings.local.json
