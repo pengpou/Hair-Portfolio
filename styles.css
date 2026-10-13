@@ -554,3 +554,20 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 
 .privacy-note { margin: 0; font-size: 0.9rem; color: var(--muted); text-align: center; }
 
+
+/* Info bubbles next to a service name (hover, keyboard focus, or tap) */
+.price-item { position: relative; }
+.info {
+  display: inline-flex; align-items: center; justify-content: center; width: 1.15rem; height: 1.15rem; margin-left: 0.55rem;
+  border: 1.5px solid var(--accent); border-radius: 50%; color: var(--accent); font-family: var(--serif); font-size: 0.72rem;
+  font-style: italic; font-weight: 700; line-height: 1; text-transform: none; letter-spacing: 0; cursor: help; vertical-align: 1px;
+}
+.info:hover, .info:focus { background: var(--accent); color: #fff; outline: none; }
+.info:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.info .tip {
+  position: absolute; left: 0; bottom: calc(100% - 0.2rem); z-index: 5; width: min(270px, 100%); padding: 0.7rem 0.9rem;
+  background: var(--ink); color: #fff; border-radius: 10px; box-shadow: 4px 4px 0 rgba(59, 42, 34, 0.25);
+  font-family: var(--font); font-size: 0.82rem; font-style: normal; font-weight: 400; line-height: 1.45; text-transform: none; letter-spacing: 0;
+  opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; pointer-events: none;
+}
+.info:hover .tip, .info:focus .tip { opacity: 1; visibility: visible; transform: none; }
