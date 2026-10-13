@@ -394,36 +394,34 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
   });
 })();
 
-// Empty photo tiles show a small emoji that rotates through a set, staggered so neighbours differ
+// Empty photo tiles show a small emoji; every tile shows the same one and they change together
 (function () {
   const emojis = ['✂️', '💇', '🐷', '✨', '💖', '🎀', '🌸', '💈'];
   const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const tiles = [];
+  const icons = [];
   document.querySelectorAll('.photo-box > span').forEach((span) => {
     const holder = document.createElement('span');
     holder.className = 'ph';
     const icon = document.createElement('b');
     icon.className = 'ph-emoji';
     icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = emojis[0];
     const label = document.createElement('small');
     label.textContent = 'coming soon';
     holder.append(icon, label);
     span.replaceWith(holder);
-    const i = tiles.length;
-    icon.textContent = emojis[(i * 3) % emojis.length];
-    tiles.push({ icon, step: (i * 3) % emojis.length, delay: (i % 6) * 450 });
+    icons.push(icon);
   });
-  if (still) return;
-  tiles.forEach((t) => {
+  if (still || !icons.length) return;
+  let step = 0;
+  setInterval(() => {
+    icons.forEach((el) => el.classList.add('out'));
     setTimeout(() => {
-      setInterval(() => {
-        t.icon.classList.add('out');
-        setTimeout(() => {
-          t.step = (t.step + 1) % emojis.length;
-          t.icon.textContent = emojis[t.step];
-          t.icon.classList.remove('out');
-        }, 350);
-      }, 2800);
-    }, t.delay);
-  });
+      step = (step + 1) % emojis.length;
+      icons.forEach((el) => {
+        el.textContent = emojis[step];
+        el.classList.remove('out');
+      });
+    }, 350);
+  }, 2800);
 })();
