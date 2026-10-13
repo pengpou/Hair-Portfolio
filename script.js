@@ -1,3 +1,13 @@
+// Refreshing the page always starts back at the top
+(function () {
+  const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  if (nav && nav.type === 'reload') {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+})();
+
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.getElementById('site-nav');
 
