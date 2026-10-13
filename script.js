@@ -393,3 +393,37 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     });
   });
 })();
+
+// Empty photo tiles show a small emoji that rotates through a set, staggered so neighbours differ
+(function () {
+  const emojis = ['✂️', '💇', '🐷', '✨', '💖', '🎀', '🌸', '💈'];
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tiles = [];
+  document.querySelectorAll('.photo-box > span').forEach((span) => {
+    const holder = document.createElement('span');
+    holder.className = 'ph';
+    const icon = document.createElement('b');
+    icon.className = 'ph-emoji';
+    icon.setAttribute('aria-hidden', 'true');
+    const label = document.createElement('small');
+    label.textContent = 'coming soon';
+    holder.append(icon, label);
+    span.replaceWith(holder);
+    const i = tiles.length;
+    icon.textContent = emojis[(i * 3) % emojis.length];
+    tiles.push({ icon, step: (i * 3) % emojis.length, delay: (i % 6) * 450 });
+  });
+  if (still) return;
+  tiles.forEach((t) => {
+    setTimeout(() => {
+      setInterval(() => {
+        t.icon.classList.add('out');
+        setTimeout(() => {
+          t.step = (t.step + 1) % emojis.length;
+          t.icon.textContent = emojis[t.step];
+          t.icon.classList.remove('out');
+        }, 350);
+      }, 2800);
+    }, t.delay);
+  });
+})();
