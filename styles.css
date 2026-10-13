@@ -313,7 +313,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 body { font-weight: 400; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-settings: "SOFT" 100, "WONK" 1; font-variant-numeric: lining-nums; }
 ::selection { background: var(--honey); color: var(--ink); }
-@keyframes marquee { to { transform: translateX(-25%); } }
+@keyframes marquee { to { transform: translateX(-12.5%); } }
 @keyframes drift { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-14px) rotate(8deg); } }
 
 /* Header: transparent over the hero, cream with a cocoa line once scrolled (always on inner pages) */
@@ -571,3 +571,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
   opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; pointer-events: none;
 }
 .info:hover .tip, .info:focus .tip { opacity: 1; visibility: visible; transform: none; }
+
+/* With three groups, Color (the longest) takes the right column; Haircuts and Blowouts stack on the left */
+@media (min-width: 801px) { .price-grid .tall { grid-column: 2; grid-row: 1 / span 2; } }
+@media (min-width: 641px) { .pill-groups .tall { grid-column: 2; grid-row: 1 / span 2; } }
