@@ -435,3 +435,26 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     }, 350);
   }, 2800);
 })();
+
+
+// Info bubbles: tap (or Enter/Space) opens one; tapping anywhere else, scrolling or Escape closes it
+(function () {
+  const infos = document.querySelectorAll('.info');
+  if (!infos.length) return;
+  const closeAll = (except) => infos.forEach((el) => { if (el !== except) el.classList.remove('open'); });
+  infos.forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = el.classList.contains('open');
+      closeAll();
+      el.classList.toggle('open', !wasOpen);
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+    });
+    el.addEventListener('mouseleave', () => el.classList.remove('open'));
+  });
+  document.addEventListener('click', () => closeAll());
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+  window.addEventListener('scroll', () => closeAll(), { passive: true });
+})();

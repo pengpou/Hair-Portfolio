@@ -562,7 +562,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
   border: 1.5px solid var(--accent); border-radius: 50%; color: var(--accent); font-family: var(--serif); font-size: 0.72rem;
   font-style: italic; font-weight: 700; line-height: 1; text-transform: none; letter-spacing: 0; cursor: help; vertical-align: 1px;
 }
-.info:hover, .info:focus { background: var(--accent); color: #fff; outline: none; }
+.info:hover, .info.open, .info:focus-visible { background: var(--accent); color: #fff; }
+.info:focus { outline: none; }
 .info:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .info .tip {
   position: absolute; left: 0; bottom: calc(100% - 0.2rem); z-index: 5; width: min(270px, 100%); padding: 0.7rem 0.9rem;
@@ -570,7 +571,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
   font-family: var(--font); font-size: 0.82rem; font-style: normal; font-weight: 400; line-height: 1.45; text-transform: none; letter-spacing: 0;
   opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; pointer-events: none;
 }
-.info:hover .tip, .info:focus .tip { opacity: 1; visibility: visible; transform: none; }
+.info:hover .tip, .info.open .tip, .info:focus-visible .tip { opacity: 1; visibility: visible; transform: none; }
 
 /* With three groups, Color (the longest) takes the right column; Haircuts and Blowouts stack on the left */
 @media (min-width: 801px) { .price-grid .tall { grid-column: 2; grid-row: 1 / span 2; } }
