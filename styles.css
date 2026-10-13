@@ -434,7 +434,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 
 /* Services: arched frames in three pastels */
 .services { --prev: var(--sage); background: var(--bg); }
-.service-grid { gap: 2.6rem; }
+.service-grid { gap: 2.6rem; grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+@media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; max-width: 380px; } }
 .service-card { gap: 1.7rem; }
 .service-label { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; letter-spacing: 0; text-transform: none; rotate: -1.5deg; }
 .service-card:nth-child(even) .service-label { rotate: 1.5deg; }
