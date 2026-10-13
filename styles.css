@@ -433,7 +433,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 700; font-variation-setting
 .photo-box figcaption { font-family: var(--hand); font-size: 1.6rem; font-weight: 700; letter-spacing: 0; text-transform: none; background: linear-gradient(transparent, rgba(59, 42, 34, 0.72)); }
 
 /* Services: arched frames in three pastels */
-.services { --prev: var(--sage); background: var(--bg); }
+.services { --prev: #fce6d2; background: var(--bg); }
 .service-grid { gap: 2.6rem; grid-template-columns: repeat(2, 1fr); max-width: 760px; }
 @media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; max-width: 380px; } }
 .service-card { gap: 1.7rem; }
